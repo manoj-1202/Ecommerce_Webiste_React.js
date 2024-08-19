@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="MuiBox-root css-av5lzv"
+>
+  <img
+    alt="Banner"
+    className="css-c64u4s"
+    src="images/banner/banner.png"
+  />
+  <div
+    className="MuiBox-root css-1apetot"
+  >
+    <h5
+      className="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
+    >
+      Huge Collection
+    </h5>
+    <h2
+      className="MuiTypography-root MuiTypography-h2 css-ik58jw-MuiTypography-root"
+    >
+      New Bags
+    </h2>
+    <h6
+      className="MuiTypography-root MuiTypography-subtitle1 css-1f8kc1i-MuiTypography-root"
+    >
+      Discover our collection of stylish bags, from sleek leather designs to versatile travel essentials, perfect for any occasion and designed to meet your every need.
+    </h6>
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorPrimary css-1kkjskx-MuiButtonBase-root-MuiButton-root"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      Shop Now
+    </button>
+  </div>
+</div>
+`;

@@ -6,7 +6,7 @@ test('render banner component without crashing',()=>{
 
 render(
     <BrowserRouter>
-<Footer/>
+       <Footer/>
 </BrowserRouter>
 
 )

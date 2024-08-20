@@ -40,7 +40,7 @@ const Products = () => {
   return (
     <Container>
       <ProductTitle>
-        Products
+        The Products
       </ProductTitle>
 
       <TextField

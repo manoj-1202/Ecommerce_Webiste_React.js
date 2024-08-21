@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Radio, RadioGroup, FormControlLabel, Box, Typography, ListItemText, MenuItem, Snackbar} from '@mui/material';
+import { Radio, RadioGroup, FormControlLabel, Box, Typography, ListItemText, MenuItem, Snackbar, CircularProgress } from '@mui/material';
 import { AccountBalanceWallet, CreditCard, Money } from '@mui/icons-material';
 import MuiAlert from '@mui/material/Alert';
 import { StyledFormControl, StyledFormLabel, StyledList, StyledListItem, StyledListItemIcon, StyledPrimaryText, StyledSecondaryText, UpiFormContainer, UpiInput, StyledContainer, StyledGrid, StyledTextField, StyledButton } from '../../styles/productsStyles/paymentStyles';
@@ -28,6 +28,7 @@ const PaymentOptions = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
   const [totalAmount, setTotalAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   // Retrieve the user ID from localStorage
   const userId = localStorage.getItem('currentUser');
@@ -73,6 +74,8 @@ const PaymentOptions = () => {
       return;
     }
 
+    setLoading(true);
+
     const token = `token-${Date.now()}`;
     const paymentInfo = {
       token,
@@ -87,12 +90,13 @@ const PaymentOptions = () => {
       setSnackbarMessage('Payment success!');
       setSnackbarSeverity('success');
       setTimeout(() => {
+        setLoading(false);
         navigate('/transation');
-      }, 1000);
-     
+      }, 2000);
     } else {
       setSnackbarMessage('User not logged in.');
       setSnackbarSeverity('error');
+      setLoading(false);
     }
 
     setSnackbarOpen(true);
@@ -124,7 +128,7 @@ const PaymentOptions = () => {
   ];
 
   return (
-    <>
+    <Box sx={{ padding: 2 }}>
       <StyledFormControl component="fieldset">
         <StyledFormLabel component="legend">
           Choose Payment Method
@@ -243,15 +247,24 @@ const PaymentOptions = () => {
         </RadioGroup>
       </StyledFormControl>
 
-      <Box sx={{display:"flex",flexDirection:"column", alignItems:"center",justifyContent:"center"}}>
-      <Typography variant="h5" align="center" marginY={1}>
-        Total Amount: ₹{totalAmount}
-      </Typography>
-      <StyledContainer>
-        <StyledButton onClick={handlePayNow} variant="contained" color="primary">
-          Pay Now
-        </StyledButton>
-      </StyledContainer>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 2 }}>
+        <Typography variant="h5" align="center" marginY={1}>
+          Total Amount: ₹{totalAmount}
+        </Typography>
+        <StyledContainer>
+          <StyledButton
+            onClick={handlePayNow}
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            sx={{ position: 'relative' }}
+          >
+            {loading && (
+              <CircularProgress size={24} sx={{ position: 'absolute', top: '50%', left: '50%', marginTop: '-12px', marginLeft: '-12px' }} />
+            )}
+           {loading ? 'Processing...' : 'Pay Now'}
+          </StyledButton>
+        </StyledContainer>
       </Box>
 
       <Snackbar
@@ -264,7 +277,7 @@ const PaymentOptions = () => {
           {snackbarMessage}
         </MuiAlert>
       </Snackbar>
-    </>
+    </Box>
   );
 };
 

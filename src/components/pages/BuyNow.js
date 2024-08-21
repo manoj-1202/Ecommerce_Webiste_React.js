@@ -1,15 +1,18 @@
-import React from 'react';
-import { Container, Typography, Card, CardContent, Box, Grid } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Typography, Card, CardContent, Box, Grid, CircularProgress, Button } from '@mui/material';
 import { useCart } from '../products/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { Euro, ShoppingCart, LocalOffer } from '@mui/icons-material';
-import { ProductRow, StyledBox, StyledProductBox, StyledImage, StyledButton, StyledTypography } from '../../styles/productsStyles/buyNowStyles';
+import { ProductRow, StyledBox, StyledProductBox, StyledImage, StyledTypography } from '../../styles/productsStyles/buyNowStyles';
 
 const BuyNow = () => {
   const { cart, getTotalAmount } = useCart();
   const navigate = useNavigate();
+  
+  const [loading, setLoading] = useState(false);
 
   const handlePlaceOrder = () => {
+    setLoading(true);
     const totalAmount = getTotalAmount();
     const orderDetails = {
       date: new Date().toLocaleDateString(),
@@ -18,11 +21,15 @@ const BuyNow = () => {
     };
     const userId = localStorage.getItem('currentUser');
     localStorage.setItem(`orderDetails-${userId}`, JSON.stringify(orderDetails));
-    navigate('/payment', { state: { totalAmount } });
+    
+    setTimeout(() => {
+      navigate('/payment', { state: { totalAmount } });
+      setLoading(false);
+    }, 1500); // Simulating an API call delay
   };
 
   return (
-    <Container sx={{ marginBottom: 4 }}>
+    <Container sx={{ marginBottom: 4, position: 'relative' }}>
       <StyledTypography variant="h4" gutterBottom align="center">
         Place Your Order
       </StyledTypography>
@@ -60,9 +67,26 @@ const BuyNow = () => {
               <Typography variant="body1" display="flex" alignItems="center" fontWeight={"bold"}>
                 Total Amount: ₹ {getTotalAmount()}
               </Typography>
-              <StyledButton onClick={handlePlaceOrder}>
-                Buy Now
-              </StyledButton>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handlePlaceOrder}
+                disabled={loading} // Disable button when loading
+              >
+                {loading ? (
+        <>
+          <CircularProgress
+            size={24}
+            color="inherit"
+           
+            
+          />
+          Processing...
+        </>
+      ) : (
+        'Buy Now'
+      )}
+    </Button>
             </StyledBox>
           </CardContent>
         </Card>

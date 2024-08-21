@@ -5,7 +5,7 @@ import { Dialog, DialogTitle, Slide, Box, IconButton, DialogContent, Typography,
 import CloseIcon from "@mui/icons-material/Close";
 import { Colors } from "../../styles/theme"; 
 import styled from "@emotion/styled";
-import { Product, ProductImage } from "../../styles/productsStyles"; 
+import {  ProductImage } from "../../styles/productsStyles"; 
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import { useCart } from '../products/CartContext';
@@ -13,17 +13,43 @@ import { useCart } from '../products/CartContext';
 function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
 }
+const Product = styled(Box)(({ theme }) => ({
+
+  [theme.breakpoints.down('md')]: {
+    marginRight: 0,
+    marginBottom: theme.spacing(2),
+    width: '40%',
+  },
+  
+
+  display: 'flex',         
+  alignItems: 'center',    
+  justifyContent: 'center'
+}));
 
 const ProductDetailWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
+  flexDirection: "row",
   padding: theme.spacing(4),
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(2),
+  },
 }));
 
-const ProductDetailInfoWrapper = styled(Box)(() => ({
+const ProductDetailInfoWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   maxWidth: 500,
   lineHeight: 1.5,
+  [theme.breakpoints.down("md")]: {
+    maxWidth: '100%',
+    textAlign: 'center',
+    alignItems: 'center',
+  },
 }));
 
 export default function ProductDetail({ open, onClose, product }) {
@@ -54,14 +80,12 @@ export default function ProductDetail({ open, onClose, product }) {
     setOpenSnackbar(false);
   };
 
-
-
   return (
     <>
       <Dialog
         TransitionComponent={SlideTransition}
         open={open}
-        fullScreen
+        fullScreen={matches} // Enable fullscreen on mobile devices
         onClose={onClose}
       >
         <DialogTitle
@@ -81,11 +105,12 @@ export default function ProductDetail({ open, onClose, product }) {
           </Box>
         </DialogTitle>
         <DialogContent>
-          <ProductDetailWrapper display={matches ? "column" : "row"}>
-            <Product sx={{ mr: 4 }}>
+          <ProductDetailWrapper>
+            <Product sx={{ mr: matches ? 0 : 4 }}>
               <ProductImage
                 style={{
-                  maxWidth: '600px'
+                  maxWidth: matches ? '100%' : '600px',
+                  marginBottom: matches ? theme.spacing(2) : 0,
                 }}
                 src={product.image}
                 alt={product.name}
@@ -103,7 +128,7 @@ export default function ProductDetail({ open, onClose, product }) {
                 sx={{ mt: 4, minWidth: matches ? '200px' : '400px' }}
                 display="flex"
                 alignItems="center"
-                justifyContent="space-between"
+                justifyContent={matches ? 'center' : 'space-between'}
               >
                 {isInCart ? (
                   <Button variant="contained" color="secondary" onClick={handleRemoveFromCart}>
@@ -122,7 +147,7 @@ export default function ProductDetail({ open, onClose, product }) {
 
       {/* Snackbar for messages */}
       <Snackbar open={openSnackbar} autoHideDuration={5000} onClose={handleCloseSnackbar}
-      anchorOrigin={{ vertical: 'center', horizontal: 'center' }}>
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
           {snackbarMessage}
         </Alert>

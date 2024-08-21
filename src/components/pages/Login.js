@@ -39,7 +39,7 @@ export default function Login() {
       // Use navigate function properly
       setTimeout(() => {
         console.log('Navigating to /login');
-        navigate('/login');
+        navigate('/');
       }, 1000);
     } else {
       setError('Invalid email or password');
@@ -108,7 +108,7 @@ export default function Login() {
           open={openSnackbar}
           autoHideDuration={6000}
           onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
           <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
             {snackbarMessage}

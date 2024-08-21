@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Button,Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 // Styled Box for product rows
 export const ProductRow = styled(Box)(({ theme }) => ({
@@ -10,12 +10,11 @@ export const ProductRow = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
       gridTemplateColumns: '1fr', 
     },
-  }));
+}));
 
 // Styled Box for individual product containers with hover effect
 export const StyledProductBox = styled(Box)(({ theme }) => ({
-
- width:"350px",
+  width: '350px',
   marginBottom: '16px',
   padding: '16px',
   backgroundColor: '#fff',
@@ -28,11 +27,12 @@ export const StyledProductBox = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('md')]: {
     maxWidth: '100%',
+    boxShadow: 'none', // Remove box shadow on small screens
   },
 }));
 
 // Styled Image for product images
-export const StyledImage = styled('img')(({theme}) =>({
+export const StyledImage = styled('img')(({ theme }) => ({
   width: '100%',
   height: 'auto',
   borderRadius: '8px',
@@ -42,8 +42,9 @@ export const StyledImage = styled('img')(({theme}) =>({
     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
   },
   [theme.breakpoints.down('md')]: {
-    height: "100%",
-    width:"50%"
+    height: '100%',
+    width: '50%',
+    boxShadow: 'none', // Remove box shadow on small screens
   },
 }));
 
@@ -58,7 +59,6 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: '#f5f5f5',
   borderTop: '1px solid #ddd',
   borderBottom: '1px solid #ddd',
- 
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -83,9 +83,9 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 // Additional typography styling if needed
-export const StyledTypography = styled(Typography)(({theme }) => ({
+export const StyledTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
-  color: "balck",
+  color: "black",
   '&:hover': {
     color: "black",
     transition: 'color 0.3s ease-in-out',

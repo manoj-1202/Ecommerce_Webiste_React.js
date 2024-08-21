@@ -20,22 +20,11 @@ const Products = () => {
 
   const handleAddToCart = (product) => {
     addToCart(product.id);
-   
   };
 
   const handleRemoveFromCart = (product) => {
-    
+    // Implement remove from cart functionality here
   };
-
-  const renderProducts = filteredProducts.map(product => (
-    <Grid item key={product.id} xs={2} sm={4} md={4} display="flex" flexDirection={'column'} alignItems="center">
-      {matches ? (
-        <SingleProduct product={product} matches={matches} onAddToCart={() => handleAddToCart(product)} onRemoveFromCart={() => handleRemoveFromCart(product)} />
-      ) : (
-        <SingleProductDesktop product={product} matches={matches} onAddToCart={() => handleAddToCart(product)} onRemoveFromCart={() => handleRemoveFromCart(product)} />
-      )}
-    </Grid>
-  ));
 
   return (
     <Container>
@@ -60,12 +49,37 @@ const Products = () => {
 
       <Grid
         container
-        spacing={{ xs: 2, md: 3 }}
+        spacing={{ xs: 2, sm: 3, md: 4 }}
         justifyContent="center"
-        sx={{ margin: `20px 4px 10px 4px` }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
+        alignItems="center"
+        sx={{ margin: '20px auto', padding: { xs: 1, sm: 2, md: 3 } }}
       >
-        {renderProducts}
+        {filteredProducts.map((product) => (
+          <Grid
+            item
+            xs={12}  
+            sm={6}   
+            md={4} 
+            lg={4}  
+            key={product.id}
+          >
+            {matches ? (
+              <SingleProduct
+                product={product}
+                matches={matches}
+                onAddToCart={() => handleAddToCart(product)}
+                onRemoveFromCart={() => handleRemoveFromCart(product)}
+              />
+            ) : (
+              <SingleProductDesktop
+                product={product}
+                matches={matches}
+                onAddToCart={() => handleAddToCart(product)}
+                onRemoveFromCart={() => handleRemoveFromCart(product)}
+              />
+            )}
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );

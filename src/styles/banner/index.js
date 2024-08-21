@@ -6,80 +6,100 @@ import { Colors } from "../theme";
 export const BannerContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
+  alignItems: "center",  // Center vertically for better alignment
   height: "100%",
   padding: 0,
   background: "lightgray",
   width: '100vw',
-  marginLeft: 'calc(-50vw + 50%)', 
+  marginLeft: 'calc(-50vw + 50%)',
   marginRight: 'calc(-50vw + 50%)',
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     flexDirection: "column",
-    alignItems: "center",
   },
 }));
 
 // Banner Image
 export const BannerImage = styled("img")(({ theme }) => ({
   marginRight: "5%",
-  width: "400px",
+  width: "40%", // Make the image take half the width on larger screens
 
   [theme.breakpoints.down("md")]: {
-    width: "350px",
+    width: "60%",
+    marginBottom: "20px", // Add space below the image on smaller screens
   },
   [theme.breakpoints.down("sm")]: {
-    width: "400px", 
+    width: "100%", // Full width on the smallest screens
     height: "auto", 
   },
 }));
 
 // Banner Content
-export const BannerContent = styled(Box)(() => ({
+export const BannerContent = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   maxWidth: 420,
-  padding: "30px",
-  textAlign: "center", // Center text alignment
+  padding: "20px",
+  textAlign: "center",
+  [theme.breakpoints.down("md")]: {
+    padding: "15px", // Reduced padding on medium screens
+  },
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: "90%", // Increase content width on small screens
+  },
 }));
 
 // Banner Title
 export const BannerTitle = styled(Typography)(({ theme }) => ({
-  lineHeight: 1.2, // Adjust line height for better readability
-  fontSize: "4em", // Responsive font size
+  lineHeight: 1.2,
+  fontSize: "3em",
   marginBottom: "20px",
   fontWeight: "bold",
-  color: '#333', // Darker text color for contrast
+  color: '#333',
+  [theme.breakpoints.down('md')]: {
+    fontSize: '3.5em', // Slightly smaller on medium screens
+  },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '2.5em',
-  }
+    fontSize: '2.5em', // Even smaller on small screens
+  },
 }));
 
 // Banner Description
 export const BannerDescription = styled(Typography)(({ theme }) => ({
   lineHeight: 1.5,
   letterSpacing: 1.15,
-  marginBottom: "2em", // Adjusted margin for better spacing
-  color: '#555', // Slightly lighter text color for readability
+  marginBottom: "1.5em",
+  color: '#555',
   [theme.breakpoints.down("md")]: {
     lineHeight: 1.4,
     letterSpacing: 1.1,
-    marginBottom: "1.5em",
+    marginBottom: "1.2em",
+  },
+  [theme.breakpoints.down("sm")]: {
+    lineHeight: 1.3,
+    letterSpacing: 1.05,
+    marginBottom: "1em",
+    fontSize: '0.9em', // Adjust font size on smaller screens
   },
 }));
 
 // Banner Shop Button
 export const BannerShopButton = styled(Button)(({ theme }) => ({
   background: "brown",
-  padding: "12px 24px", // Adjusted padding for better button proportion
+  padding: "12px 24px",
   color: Colors.white,
   fontWeight: "bold",
   fontSize: "16px",
-  borderRadius: "4px", // Slightly rounded corners for the button
+  borderRadius: "4px",
   '&:hover': {
-    backgroundColor: 'darkgreen', // Darker green for hover effect
+    backgroundColor: 'darkgreen',
   },
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     padding: "10px 20px",
     fontSize: "14px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: "8px 16px", // Smaller padding for small screens
+    fontSize: "12px", // Smaller font size for small screens
   },
 }));

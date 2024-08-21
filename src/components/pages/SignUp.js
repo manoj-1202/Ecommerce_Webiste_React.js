@@ -124,7 +124,7 @@ export default function SignUp() {
           </Box>
         </Box>
         <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
           <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
             {message}
           </Alert>

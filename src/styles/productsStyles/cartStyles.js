@@ -1,6 +1,21 @@
 import styled from "@emotion/styled";
 import { Box, Button, Typography } from "@mui/material";
 
+// Container to center the CartProduct on the screen
+export const CartContainer = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexWrap: "wrap",
+  width: "100%",
+  minHeight: "100vh",
+  padding: theme.spacing(2),
+  boxSizing: "border-box",
+  [theme.breakpoints.down("md")]: {
+    padding: theme.spacing(1),
+  },
+}));
+
 // CartProduct with a gradient background and rounded corners
 export const CartProduct = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -15,6 +30,7 @@ export const CartProduct = styled(Box)(({ theme }) => ({
   transition: 'transform 0.3s, box-shadow 0.3s',
   padding: theme.spacing(2),
   marginBottom: theme.spacing(2),
+  margin: "0 auto",
   '&:hover': {
     transform: 'scale(1.05)',
     boxShadow: '0px 8px 16px rgba(0,0,0,0.2)',
@@ -22,6 +38,9 @@ export const CartProduct = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(1.5),
     marginTop: theme.spacing(1.5),
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "50%",
   },
 }));
 
@@ -36,7 +55,7 @@ export const ProductImage = styled("img")(({ theme }) => ({
     transform: 'scale(1.1)',
   },
   [theme.breakpoints.down("md")]: {
-    width: '100%',
+    width: '70%',
   },
 }));
 
@@ -49,6 +68,7 @@ export const CartQuantityBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     marginTop: theme.spacing(1.5),
     gap: theme.spacing(0.5),
+   
   },
 }));
 
@@ -124,5 +144,10 @@ export const BuyNow = styled(Button)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     padding: '10px 16px',
     marginTop: theme.spacing(1.5),
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    padding: '8px 12px',
+    fontSize: '0.875rem',
   },
 }));

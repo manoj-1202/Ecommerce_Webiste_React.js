@@ -2,13 +2,15 @@ import styled from "@emotion/styled";
 import { Box, Button } from "@mui/material";
 import { Colors } from "../theme";
 
+
 // Product styling with a shadow and hover effect
 export const Product = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent:"center",
   width: "200px",
-
+  margin: theme.spacing(1.5),
   border: '2px solid #ddd',
   borderRadius: '8px',
   padding: theme.spacing(2),
@@ -20,6 +22,11 @@ export const Product = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(1.5),
+    width: "160px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: theme.spacing(1),
+    width: "140px",
   },
 }));
 

@@ -43,8 +43,8 @@ const SingleProduct = ({ product, matches }) => {
       <Product>
         <ProductImage src={product.image} />
         <ProductMeta product={{ ...product, price: formatPrice(product.price) }} matches={matches} />
-        <ProductActionsWrapper show={true}>
-          <Stack direction="column">
+        <ProductActionsWrapper>
+          <Stack direction="row">
             <ProductFavButton isFav={isFav} onClick={handleFavoriteClick}>
               <FavoriteIcon color={isFav ? "error" : "inherit"} />
             </ProductFavButton>

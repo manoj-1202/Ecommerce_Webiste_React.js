@@ -9,10 +9,11 @@ export const FooterContainer = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(8),
   fontSize: '12px',
-  width: '100vw',
-  marginLeft: 'calc(-50vw + 50%)', 
-  marginRight: 'calc(-50vw + 50%)',
-  
+  width: '100vw', // Full viewport width
+  maxWidth: '100%', // Ensure it does not exceed viewport width
+  boxSizing: 'border-box',
+  overflowX: 'hidden',
+  margin: 0, // Ensure no extra margins
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(6),
     paddingTop: theme.spacing(5),
@@ -21,11 +22,9 @@ export const FooterContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(5),
-   
     fontSize: '14px',
   },
 }));
-
 export const FooterTitle = styled(Typography)(({ theme }) => ({
   textTransform: "uppercase",
   marginBottom: theme.spacing(2),

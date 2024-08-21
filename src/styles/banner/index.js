@@ -6,18 +6,19 @@ import { Colors } from "../theme";
 export const BannerContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
-  alignItems: "center",  // Center vertically for better alignment
+  alignItems: "center",
   height: "100%",
   padding: 0,
   background: "lightgray",
-  width: '100vw',
-  marginLeft: 'calc(-50vw + 50%)',
-  marginRight: 'calc(-50vw + 50%)',
+  width: '100vw', // Full viewport width
+  maxWidth: '100%', // Ensure it does not exceed viewport width
+  boxSizing: 'border-box',
+  overflowX: 'hidden',
+  margin: 0, // Ensure no extra margins
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
 }));
-
 // Banner Image
 export const BannerImage = styled("img")(({ theme }) => ({
   marginRight: "5%",

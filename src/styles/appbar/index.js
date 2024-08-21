@@ -8,16 +8,18 @@ export const AppbarContainer = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   padding: "2px 8px",
-  backgroundColor: '#ffffff', 
-  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', 
-  width: '100vw',
-  marginLeft: 'calc(-50vw + 50%)', 
-  marginRight: 'calc(-50vw + 50%)',
+  backgroundColor: '#ffffff',
+  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+  width: '100vw', // Full viewport width
+  maxWidth: '100%', // Ensure it does not exceed viewport width
+  boxSizing: 'border-box',
+  overflowX: 'hidden',
+  margin: 0, // Ensure no extra margins
   [theme.breakpoints.down('sm')]: {
-    padding: "4px 16px", // Increase padding for smaller screens
+    padding: "4px 16px",
   },
   [theme.breakpoints.up('md')]: {
-    justifyContent: "space-between", // Adjust alignment on medium and up screens
+    justifyContent: "space-between",
   },
 }));
 
@@ -29,13 +31,7 @@ export const AppbarHeader = styled(Typography)(({ theme }) => ({
   fontFamily: '"Montez", "cursive"',
   color: '#ff4081',
   textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', 
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '2.5em', // Smaller font size on small screens
-    textAlign: "center", // Center align text on small screens
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '4.5em', // Larger font size on medium and up screens
-  },
+
 }));
 
 // List

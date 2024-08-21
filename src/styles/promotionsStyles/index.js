@@ -4,18 +4,17 @@ import { Colors } from "../theme";
 
 export const PromotionsContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
-    padding: "40px 0px 40px 0px",
+    padding: "40px 0", 
   },
-  height:"15px",
+  height: "15px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  padding: "20px 0px 20px 0px",
+  padding: "35px 0", 
   overflow: "hidden",
   background: Colors.secondary,
-  width: '100vw',
-  marginLeft: 'calc(-50vw + 50%)', 
-  marginRight: 'calc(-50vw + 50%)',
+  width: '100%',
+  boxSizing: 'border-box', 
 }));
 
 export const MessageText = styled(Typography)(({ theme }) => ({

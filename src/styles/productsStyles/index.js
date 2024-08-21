@@ -8,13 +8,13 @@ export const Product = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  justifyContent: "center", // Center the product
+  justifyContent: "center", 
   marginTop: "25px",
   padding: theme.spacing(1.5),
   borderRadius: "12px",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   transition: "transform 0.3s ease, box-shadow 0.3s ease",
-  backgroundColor: Colors.white,
+  backgroundColor: "rgb(244, 238, 238)",
   maxWidth: "220px", 
   width: '100%',
   '&:hover': {

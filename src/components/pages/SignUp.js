@@ -11,9 +11,11 @@ export default function SignUp() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState('success');
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true); // Start loading
     const data = new FormData(event.currentTarget);
 
     const user = {
@@ -28,6 +30,7 @@ export default function SignUp() {
       setMessage('User with this email already exists. Please log in.');
       setSeverity('error');
       setOpen(true);
+      setLoading(false); 
       return;
     }
 
@@ -39,8 +42,9 @@ export default function SignUp() {
     setOpen(true);
 
     setTimeout(() => {
+      setLoading(false); 
       navigate('/login');
-    }, 1000);
+    }, 2000);
   };
 
   const handleClose = (event, reason) => {
@@ -111,8 +115,9 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={loading} // Disable button when loading
             >
-              Sign Up
+              {loading ? 'Creating a User...' : 'Sign Up'}
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

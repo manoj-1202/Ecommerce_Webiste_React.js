@@ -8,6 +8,7 @@ import useDialogModal from '../../hooks/useDialogModel';
 import ProductDetail from '../productDetails';
 import { useCart } from './CartContext';
 import { useFavorites } from '../pages/FavoritesContext';
+import { useUser } from '../pages/UserContext';
 
 const formatPrice = (price) => `₹${price}`;
 
@@ -15,41 +16,62 @@ const SingleProduct = ({ product, matches }) => {
   const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
   const { addToCart, removeFromCart, cart } = useCart();
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+  const { user } = useUser();
+
   const inCart = cart.some((item) => item.id === product.id);
   const isFav = favorites.some((item) => item.id === product.id);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success'); 
   const [loading, setLoading] = useState(false);
 
   const handleFavoriteClick = () => {
+    if (!user) {
+      setSnackbarMessage('You need to login to add items to favorites.');
+      setSnackbarSeverity('warning');
+      setOpenSnackbar(true);
+      return;
+    }
+    
     setLoading(true);
     setTimeout(() => {
       if (isFav) {
         removeFromFavorites(product.id);
         setSnackbarMessage('Removed from Favorites');
+        setSnackbarSeverity('warning'); 
       } else {
         addToFavorites(product);
         setSnackbarMessage('Added to Favorites');
+        setSnackbarSeverity('success'); 
       }
       setLoading(false);
       setOpenSnackbar(true);
-    }, 500); // Simulating an API call
+    }, 500);
   };
 
   const handleCartClick = () => {
+    if (!user) {
+      setSnackbarMessage('You need to login to add items to the cart.');
+      setSnackbarSeverity('warning');
+      setOpenSnackbar(true);
+      return;
+    }
+
     setLoading(true);
     setTimeout(() => {
       if (inCart) {
         removeFromCart(product.id);
         setSnackbarMessage('Removed from Cart');
+        setSnackbarSeverity('warning'); 
       } else {
         addToCart(product);
         setSnackbarMessage('Added to Cart');
+        setSnackbarSeverity('success'); 
       }
       setLoading(false);
       setOpenSnackbar(true);
-    }, 500); // Simulating an API call
+    }, 500); 
   };
 
   const handleCloseSnackbar = () => {
@@ -57,7 +79,7 @@ const SingleProduct = ({ product, matches }) => {
   };
 
   return (
-    <>
+    <div style={{ position: 'relative' }}>
       <Product>
         <ProductImage src={product.image} />
         <ProductMeta product={{ ...product, price: formatPrice(product.price) }} matches={matches} />
@@ -88,7 +110,7 @@ const SingleProduct = ({ product, matches }) => {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success">
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
           {snackbarMessage}
         </Alert>
       </Snackbar>
@@ -99,14 +121,13 @@ const SingleProduct = ({ product, matches }) => {
           size={30}
           sx={{
             position: 'absolute',
-            top: '80%',
+            top: '50%',
             left: '50%',
-            marginLeft: '-12px',
-            marginTop: '-12px',
+            transform: 'translate(-50%, -50%)', 
           }}
         />
       )}
-    </>
+    </div>
   );
 };
 

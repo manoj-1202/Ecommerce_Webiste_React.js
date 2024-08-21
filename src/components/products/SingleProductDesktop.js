@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, Snackbar, Alert, CircularProgress } from '@mui/material';
+import { Stack, Snackbar, Alert, CircularProgress, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FitScreenIcon from '@mui/icons-material/FitScreen';
 import { Product, ProductActionButton, ProductActionsWrapper, ProductAddToCart, ProductFavButton, ProductImage } from '../../styles/productsStyles';
@@ -8,6 +8,7 @@ import useDialogModal from '../../hooks/useDialogModel';
 import ProductDetail from '../productDetails';
 import { useCart } from './CartContext';
 import { useFavorites } from '../pages/FavoritesContext';
+import { useUser } from '../pages/UserContext';
 
 const formatPrice = (price) => `₹${price}`;
 
@@ -15,12 +16,15 @@ const SingleProductDesktop = ({ product, matches }) => {
   const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
   const { addToCart, removeFromCart, cart } = useCart();
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+  const { user } = useUser();
+
   const inCart = cart.some((item) => item.id === product.id);
   const isFav = favorites.some((item) => item.id === product.id);
 
   const [showOptions, setShowOptions] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success'); 
   const [loading, setLoading] = useState(false);
 
   const handleMouseEnter = () => {
@@ -32,33 +36,51 @@ const SingleProductDesktop = ({ product, matches }) => {
   };
 
   const handleFavoriteClick = () => {
+    if (!user) {
+      setSnackbarMessage('You need to login to add items to favorites.');
+      setSnackbarSeverity('warning'); 
+      setOpenSnackbar(true);
+      return;
+    }
+
     setLoading(true);
     setTimeout(() => {
       if (isFav) {
         removeFromFavorites(product.id);
         setSnackbarMessage('Removed from Favorites');
+        setSnackbarSeverity('warning'); 
       } else {
         addToFavorites(product);
         setSnackbarMessage('Added to Favorites');
+        setSnackbarSeverity('success');
       }
       setLoading(false);
       setOpenSnackbar(true);
-    }, 500); // Simulating an API call
+    }, 500); 
   };
 
   const handleCartClick = () => {
+    if (!user) {
+      setSnackbarMessage('You need to login to add items to the cart.');
+      setSnackbarSeverity('warning'); 
+      setOpenSnackbar(true);
+      return;
+    }
+
     setLoading(true);
     setTimeout(() => {
       if (inCart) {
         removeFromCart(product.id);
         setSnackbarMessage('Removed from Cart');
+        setSnackbarSeverity('warning');
       } else {
         addToCart(product);
         setSnackbarMessage('Added to Cart');
+        setSnackbarSeverity('success'); 
       }
       setLoading(false);
       setOpenSnackbar(true);
-    }, 500); // Simulating an API call
+    }, 500); 
   };
 
   const handleCloseSnackbar = () => {
@@ -67,30 +89,53 @@ const SingleProductDesktop = ({ product, matches }) => {
 
   return (
     <>
-      <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <ProductImage src={product.image} />
-        {(showOptions || matches) && (
-          <ProductFavButton isFav={isFav} onClick={handleFavoriteClick}>
-            <FavoriteIcon color={isFav ? "error" : "inherit"} />
-          </ProductFavButton>
-        )}
-        {(showOptions || matches) && (
-          <ProductAddToCart
-            variant="contained"
-            onClick={handleCartClick}
-            show={showOptions}
+      <Box sx={{ position: 'relative' }}>
+        <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+          <ProductImage src={product.image} />
+          {(showOptions || matches) && (
+            <ProductFavButton isFav={isFav} onClick={handleFavoriteClick}>
+              <FavoriteIcon color={isFav ? "error" : "inherit"} />
+            </ProductFavButton>
+          )}
+          {(showOptions || matches) && (
+            <ProductAddToCart
+              variant="contained"
+              onClick={handleCartClick}
+              show={showOptions}
+            >
+              {inCart ? 'Remove from Cart' : 'Add to Cart'}
+            </ProductAddToCart>
+          )}
+          <ProductActionsWrapper show={showOptions || matches}>
+            <Stack direction={matches ? "row" : "column"}>
+              <ProductActionButton onClick={() => showProductDetailDialog()}>
+                <FitScreenIcon color="primary" />
+              </ProductActionButton>
+            </Stack>
+          </ProductActionsWrapper>
+        </Product>
+
+        {/* Loading Indicator */}
+        {loading && (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: 'rgba(255, 255, 255, 0.7)', 
+              zIndex: 10, 
+            }}
           >
-            {inCart ? 'Remove from Cart' : 'Add to Cart'}
-          </ProductAddToCart>
+            <CircularProgress size={48} />
+          </Box>
         )}
-        <ProductActionsWrapper show={showOptions || matches}>
-          <Stack direction={matches ? "row" : "column"}>
-            <ProductActionButton onClick={() => showProductDetailDialog()}>
-              <FitScreenIcon color="primary" />
-            </ProductActionButton>
-          </Stack>
-        </ProductActionsWrapper>
-      </Product>
+      </Box>
+
       <ProductMeta product={{ ...product, price: formatPrice(product.price) }} matches={matches} />
       <ProductDetailDialog product={product} />
 
@@ -99,26 +144,12 @@ const SingleProductDesktop = ({ product, matches }) => {
         open={openSnackbar}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success">
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity}>
           {snackbarMessage}
         </Alert>
       </Snackbar>
-
-      {/* Loading Indicator */}
-      {loading && (
-        <CircularProgress
-          size={24}
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            marginLeft: '-12px',
-            marginTop: '-12px',
-          }}
-        />
-      )}
     </>
   );
 };

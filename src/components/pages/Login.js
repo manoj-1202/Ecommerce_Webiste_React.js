@@ -9,6 +9,7 @@ const defaultTheme = createTheme();
 
 export default function Login() {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const { login } = useUser();
@@ -16,10 +17,11 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true); // Start loading
+
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-
 
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(u => u.email === email && u.password === password);
@@ -38,18 +40,18 @@ export default function Login() {
 
       // Use navigate function properly
       setTimeout(() => {
-        console.log('Navigating to /login');
+        setLoading(false); 
         navigate('/');
-      }, 1000);
+      }, 2000);
     } else {
       setError('Invalid email or password');
+      setLoading(false); 
     }
   };
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
-
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -88,9 +90,16 @@ export default function Login() {
                 {error}
               </Typography>
             )}
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
-            </Button>
+            <Button
+  type="submit"
+  fullWidth
+  variant="contained"
+  sx={{ mt: 3, mb: 2 }}
+  disabled={loading} // Disable the button when loading
+>
+  {loading ? 'Processing...' : 'Sign In'}
+</Button>
+
             <Grid container>
               <Grid item xs>
               </Grid>
@@ -106,9 +115,9 @@ export default function Login() {
         {/* Snackbar for login success */}
         <Snackbar
           open={openSnackbar}
-          autoHideDuration={6000}
+          autoHideDuration={5000}
           onClose={handleCloseSnackbar}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
           <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
             {snackbarMessage}

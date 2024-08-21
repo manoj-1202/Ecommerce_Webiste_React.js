@@ -1,16 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useUser } from '../pages/UserContext';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const { user } = useUser();
   const [cart, setCart] = useState([]);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState('info');
 
   useEffect(() => {
     if (user) {
@@ -27,23 +22,9 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart, user]);
 
-  const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setSnackbarOpen(false);
-  };
-
-  const showSnackbar = (message, severity = 'info') => {
-    setSnackbarMessage(message);
-    setSnackbarSeverity(severity);
-    setSnackbarOpen(true);
-  };
-
   const addToCart = (product) => {
     if (!user) {
-      showSnackbar('You need to login to add items to the cart.', 'warning');
-      return;
+      return; // User not logged in, do nothing
     }
 
     setCart((prevCart) => {
@@ -88,18 +69,6 @@ export const CartProvider = ({ children }) => {
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, increaseQuantity, decreaseQuantity, getTotalAmount }}>
       {children}
-      
-      <Snackbar
-  open={snackbarOpen}
-  autoHideDuration={6000}
-  onClose={handleSnackbarClose}
-  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
->
-  <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
-    {snackbarMessage}
-  </Alert>
-</Snackbar>
-
     </CartContext.Provider>
   );
 };

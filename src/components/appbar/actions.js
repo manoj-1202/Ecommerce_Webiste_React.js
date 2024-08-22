@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Divider, ListItemButton, ListItemIcon, ListItemText, Dialog, DialogActions, DialogContent, DialogTitle, Button, Badge } from "@mui/material";
+import {  ListItemIcon, ListItemText, Dialog, DialogActions, DialogContent, DialogTitle, Button, Badge } from "@mui/material";
 import { Link, useLocation } from 'react-router-dom';
-import { ActionIconsContainerDesktop, ActionIconsContainerMobile, MyList } from "../../styles/appbar";
+import { ActionIconsContainerDesktop, ActionIconsContainerMobile, MyList  ,CustomListItemButton, CustomDivider} from "../../styles/appbar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import RestoreIcon from '@mui/icons-material/Restore';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -38,7 +38,7 @@ const Actions = ({ matches }) => {
   return (
     <Component>
       <MyList type="row">
-        <ListItemButton 
+        <CustomListItemButton
           component={Link} 
           to="/cart" 
           sx={{ 
@@ -51,9 +51,9 @@ const Actions = ({ matches }) => {
               <ShoppingCartIcon />
             </Badge>
           </ListItemIcon>
-        </ListItemButton>
-        <Divider orientation='vertical' flexItem />
-        <ListItemButton 
+        </CustomListItemButton>
+        <CustomDivider orientation='vertical' flexItem />
+        <CustomListItemButton 
           component={Link} 
           to="/favorites" 
           sx={{ 
@@ -66,13 +66,13 @@ const Actions = ({ matches }) => {
               <FavoriteIcon />
             </Badge>
           </ListItemIcon>
-        </ListItemButton>
-        <Divider orientation='vertical' flexItem />
+        </CustomListItemButton>
+        <CustomDivider orientation='vertical' flexItem />
 
         {user ? (
           <>
 {/* //trnasaction icon */}
-<ListItemButton 
+<CustomListItemButton 
         component={Link} 
         to="/transation" 
         sx={{ 
@@ -84,9 +84,9 @@ const Actions = ({ matches }) => {
         <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
           <RestoreIcon />
         </ListItemIcon>
-      </ListItemButton>
+      </CustomListItemButton>
       
-      <Divider 
+      <CustomDivider 
         orientation='vertical' 
         flexItem 
         sx={{ 
@@ -95,7 +95,7 @@ const Actions = ({ matches }) => {
       />
 {/* ///// */}
 
-            <ListItemButton 
+            <CustomListItemButton 
               component={Link} 
               to="/user" 
               sx={{ 
@@ -104,17 +104,17 @@ const Actions = ({ matches }) => {
               }}
             >
               <ListItemText primary={`Hello, ${user.firstName || 'User'}`} />
-            </ListItemButton>
-            <Divider orientation='vertical' flexItem />
-            <ListItemButton 
+            </CustomListItemButton>
+            <CustomDivider orientation='vertical' flexItem />
+            <CustomListItemButton 
               onClick={handleLogout} 
               sx={{ justifyContent: "center" }}
             >
               <ListItemText primary="Logout" />
-            </ListItemButton>
+            </CustomListItemButton>
           </>
         ) : (
-          <ListItemButton 
+          <CustomListItemButton 
             component={Link} 
             to="/login" 
             sx={{ 
@@ -123,7 +123,7 @@ const Actions = ({ matches }) => {
             }}
           >
             <ListItemText primary="Login" />
-          </ListItemButton>
+          </CustomListItemButton>
 
 
         )}

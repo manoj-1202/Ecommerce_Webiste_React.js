@@ -1,6 +1,9 @@
 import { Box, Typography, List, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "@fontsource/montez";
+import ListItemButton from '@mui/material/ListItemButton';
+import Divider from '@mui/material/Divider';
+
 
 // Container
 export const AppbarContainer = styled(Box)(({ theme }) => ({
@@ -46,11 +49,34 @@ export const MyList = styled(List)(({ theme, type }) => ({
   gap: '10px',
   [theme.breakpoints.down('sm')]: {
     flexDirection: "row", 
-    gap: '8px', 
+    gap: '0px',
+  
   },
   [theme.breakpoints.up('md')]: {
     flexDirection: type === 'row' ? 'row' : 'block', 
     gap: '15px', 
+  },
+}));
+
+export const CustomListItemButton = styled(ListItemButton)(({ theme, isActive }) => ({
+  
+  [theme.breakpoints.down('sm')]: {
+    
+    padding: '5px',
+    marigin:"0px",
+    width: '0px',              
+    justifyContent: 'flex-start',
+  },
+  
+}));
+
+export const CustomDivider = styled(Divider)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+ 
+   padding:"0px",
+   marigin:"0px",
+  width:"0px" 
+ 
   },
 }));
 

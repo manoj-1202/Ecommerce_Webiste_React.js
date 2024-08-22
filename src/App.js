@@ -20,6 +20,8 @@ import { FavoritesProvider } from './components/pages/FavoritesContext';
 import { CartProvider } from './components/products/CartContext';
 import { UserProvider } from './components/pages/UserContext'; 
 import OrderDetails from './components/pages/OrderDetails';
+import Success from './components/pages/Success';
+
 
 
 function App() {
@@ -53,6 +55,7 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/buynow" element={<BuyNow />} />
                     <Route path="/payment" element={<Payment />} />
+                    <Route path="/Success" element={<Success />} />
                     <Route path="/transation" element={<OrderDetails/>}/>
 
                   </Routes>

@@ -44,14 +44,7 @@ const AppDrawer = () => {
             <ListItemText>Contact Us</ListItemText>
           </ListItemButton>
           <Divider />
-          <ListItemButton onClick={() => handleNavigation('/cart')}>
-            <ListItemText>Cart</ListItemText>
-          </ListItemButton>
-          <Divider />
-          <ListItemButton onClick={() => handleNavigation('/favorites')}>
-            <ListItemText>Favourites</ListItemText>
-          </ListItemButton>
-          <Divider />
+          
           <ListItemButton onClick={() => handleNavigation('/transation')}>
             <ListItemText>Transation</ListItemText>
           </ListItemButton>

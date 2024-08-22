@@ -87,19 +87,17 @@ const PaymentOptions = () => {
 
     if (userId) {
       localStorage.setItem(`paymentInfo-${userId}`, JSON.stringify(paymentInfo));
-      setSnackbarMessage('Payment success!');
-      setSnackbarSeverity('success');
+      // Removed success message and navigate to the success page
       setTimeout(() => {
         setLoading(false);
-        navigate('/transation');
-      }, 2000);
+        navigate('/success');
+      }, 3000);
     } else {
       setSnackbarMessage('User not logged in.');
       setSnackbarSeverity('error');
       setLoading(false);
+      setSnackbarOpen(true);
     }
-
-    setSnackbarOpen(true);
   };
 
   const handleSnackbarClose = () => {
@@ -128,13 +126,11 @@ const PaymentOptions = () => {
   ];
 
   return (
-    
     <Box sx={{ padding: 2 }}>
-       <Typography variant="h5" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
+      <Typography variant="h5" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
         Payment Method
       </Typography>
       <StyledFormControl component="fieldset">
-     
         <RadioGroup
           aria-label="payment-method"
           name="payment-method"
@@ -264,18 +260,24 @@ const PaymentOptions = () => {
             {loading && (
               <CircularProgress size={24} sx={{ position: 'absolute', top: '50%', left: '50%', marginTop: '-12px', marginLeft: '-12px' }} />
             )}
-           {loading ? 'Processing...' : 'Pay Now'}
+            {loading ? 'Processing...' : 'Pay Now'}
           </StyledButton>
         </StyledContainer>
       </Box>
 
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={6000}
+        autoHideDuration={5000}
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <MuiAlert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+        <MuiAlert
+          elevation={6}
+          variant="filled"
+          severity={snackbarSeverity}
+          onClose={handleSnackbarClose}
+         
+        >
           {snackbarMessage}
         </MuiAlert>
       </Snackbar>

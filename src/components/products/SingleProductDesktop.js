@@ -26,6 +26,7 @@ const SingleProductDesktop = ({ product, matches }) => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success'); 
   const [loading, setLoading] = useState(false);
+  const [iconLoading, setIconLoading] = useState(false); // New state for icon loading
 
   const handleMouseEnter = () => {
     setShowOptions(true);
@@ -83,6 +84,14 @@ const SingleProductDesktop = ({ product, matches }) => {
     }, 500); 
   };
 
+  const handleIconClick = () => {
+    setIconLoading(true); // Start loading
+    setTimeout(() => {
+      setIconLoading(false); // End loading
+      showProductDetailDialog();
+    }, 500); // Simulate a loading delay
+  };
+
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
@@ -108,8 +117,8 @@ const SingleProductDesktop = ({ product, matches }) => {
           )}
           <ProductActionsWrapper show={showOptions || matches}>
             <Stack direction={matches ? "row" : "column"}>
-              <ProductActionButton onClick={() => showProductDetailDialog()}>
-                <FitScreenIcon color="primary" />
+              <ProductActionButton onClick={handleIconClick}>
+                {iconLoading ? <CircularProgress size={24} /> : <FitScreenIcon color="primary" />}
               </ProductActionButton>
             </Stack>
           </ProductActionsWrapper>

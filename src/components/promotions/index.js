@@ -5,7 +5,7 @@ import { MessageText, PromotionsContainer } from "../../styles/promotionsStyles"
 
 const messages = [
   "20% off on your first order!",
-  "Aadi sale starts Now Visit Any time to Purchase",
+  "Order Fast! Offer Ends Soon",
   "Do You Like My Webpage :)",
 ];
 

@@ -5,10 +5,9 @@ import "@fontsource/montez";
 // Container
 export const AppbarContainer = styled(Box)(({ theme }) => ({
   display: "flex",
-  justifyContent: "center",
+  justifyContent: 'space-between',
   alignItems: "center",
   padding: "2px 8px",
-  backgroundColor: '#ffffff',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
   width: '100vw', 
   maxWidth: '100%',
@@ -31,6 +30,10 @@ export const AppbarHeader = styled(Typography)(({ theme }) => ({
   fontFamily: '"Montez", "cursive"',
   color: '#ff4081',
   textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', 
+  [theme.breakpoints.down('sm')]: {
+   fontSize:"3.5em",
+  
+  },
 
 }));
 

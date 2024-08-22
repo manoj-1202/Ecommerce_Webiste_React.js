@@ -17,6 +17,7 @@ export const Product = styled(Box)(({ theme }) => ({
   backgroundColor: "rgb(244, 238, 238)",
   maxWidth: "220px", 
   width: '100%',
+ 
   '&:hover': {
     transform: "scale(1.02)",
     boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
@@ -36,9 +37,10 @@ export const Product = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
+    
     maxWidth: "320px", 
-    marginLeft: "auto",
-    marginRight: "auto",
+    marginLeft: "-12px",
+    
   },
 }));
 
@@ -57,22 +59,38 @@ export const ProductTitle = styled(Box)(({ theme }) => ({
 
 export const ProductImage = styled("img")(({ theme }) => ({
   width: "100%",
-  height: "auto",
+  height: "250px",
   borderRadius: "8px",
   objectFit: "cover",
   transition: "transform 0.3s ease",
+
   '&:hover': {
     transform: "scale(1.02)",
   },
+
+  [theme.breakpoints.down("sm")]: {
+    transition: "none",
+    '&:hover': {
+      transform: "none",
+    },
+  },
 }));
 
-export const ProductActionButton = styled(IconButton)(() => ({
+
+export const ProductActionButton = styled(IconButton)(({theme}) => ({
   background: Colors.white,
   color: Colors.primary,
   margin: "2px",  
   borderRadius: "10px",
   '&:hover': {
     background: Colors.light_gray,
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    transition: "none",
+    '&:hover': {
+      transform: "none",
+    },
   },
 }));
 
@@ -91,7 +109,18 @@ export const ProductFavButton = styled(ProductActionButton)(({ isfav, theme }) =
     top: 0,
     animation: `${slideInRight} 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,
   },
+  [theme.breakpoints.down("sm")]: {
+    position:"absolute",
+    left:0,
+    top:50,
+     animation: "none",
+     transition: "none",
+     '&:hover': {
+       transform: "none",
+     },
+  },
 }));
+
 
 export const ProductActionsWrapper = styled(Box)(({ show, theme }) => ({
   [theme.breakpoints.up("md")]: {
@@ -101,6 +130,12 @@ export const ProductActionsWrapper = styled(Box)(({ show, theme }) => ({
     top: '20%',
     animation: show && `${slideInRight} 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,
   },
+  [theme.breakpoints.down("sm")]: {
+    position:"absolute",
+  right:0,
+  top:20,
+  animation: "none"
+  },
 }));
 
 export const ProductAddToCart = styled(Button, {
@@ -109,7 +144,7 @@ export const ProductAddToCart = styled(Button, {
   fontSize: "14px",
   background: "orange",
   color: Colors.white,
-  padding: "8px 6px",  // Adjusted padding for a more compact button
+  padding: "8px 6px",  
   borderRadius: "8px",
   opacity: 0.9,
   boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
@@ -122,6 +157,9 @@ export const ProductAddToCart = styled(Button, {
     bottom: "2%",
     width: "100%",
     animation: show && `${slideInBottom} 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,
+  },
+  [theme.breakpoints.down("sm")]: {
+   width:"200px"
   },
 }));
 
@@ -165,3 +203,4 @@ export const ProductActionsWrapperChat = styled(Box)(({ show, theme }) => ({
     animation: show && `${slideInRight} 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both`,
   },
 }));
+

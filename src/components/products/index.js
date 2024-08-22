@@ -27,7 +27,7 @@ const Products = () => {
   };
 
   return (
-    <Container>
+    <Container >
       <ProductTitle>
         The Products
       </ProductTitle>
@@ -49,10 +49,9 @@ const Products = () => {
 
       <Grid
         container
-        spacing={{ xs: 2, sm: 3, md: 4 }}
+        spacing={{  sm: 3, md: 0 }}
         justifyContent="center"
         alignItems="center"
-        sx={{ margin: '20px auto', padding: { xs: 1, sm: 2, md: 3 } }}
       >
         {filteredProducts.map((product) => (
           <Grid
@@ -61,6 +60,7 @@ const Products = () => {
             md={4} 
             lg={4}  
             key={product.id}
+            
           >
             {matches ? (
               <SingleProduct

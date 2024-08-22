@@ -17,7 +17,7 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
 
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
@@ -36,20 +36,23 @@ export default function Login() {
 
       login(userData);
       setSnackbarMessage('Login successful!');
-      setOpenSnackbar(true);
+      setOpenSnackbar(false);
 
-      // Use navigate function properly
+      // Navigate to the homepage after a brief delay
       setTimeout(() => {
-        setLoading(false); 
+        setLoading(false);
         navigate('/');
       }, 2000);
     } else {
       setError('Invalid email or password');
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
-  const handleCloseSnackbar = () => {
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
     setOpenSnackbar(false);
   };
 
@@ -91,14 +94,14 @@ export default function Login() {
               </Typography>
             )}
             <Button
-  type="submit"
-  fullWidth
-  variant="contained"
-  sx={{ mt: 3, mb: 2 }}
-  disabled={loading} // Disable the button when loading
->
-  {loading ? 'Processing...' : 'Sign In'}
-</Button>
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
+            >
+              {loading ? 'Processing...' : 'Sign In'}
+            </Button>
 
             <Grid container>
               <Grid item xs>
@@ -112,7 +115,6 @@ export default function Login() {
           </Box>
         </Box>
 
-        {/* Snackbar for login success */}
         <Snackbar
           open={openSnackbar}
           autoHideDuration={5000}

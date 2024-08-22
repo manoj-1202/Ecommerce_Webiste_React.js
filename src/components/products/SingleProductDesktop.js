@@ -89,7 +89,7 @@ const SingleProductDesktop = ({ product, matches }) => {
 
   return (
     <>
-      <Box sx={{ position: 'relative' }}>
+      <Box >
         <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <ProductImage src={product.image} />
           {(showOptions || matches) && (

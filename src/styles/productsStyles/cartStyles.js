@@ -108,7 +108,7 @@ export const TotalAmountContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(2),
   borderRadius: '8px',
-  border: '1px solid #ddd',
+
   backgroundColor: '#f9f9f9',
   marginTop: theme.spacing(3),
   [theme.breakpoints.down("md")]: {

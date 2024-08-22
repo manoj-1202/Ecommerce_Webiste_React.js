@@ -10,11 +10,11 @@ export const AppbarContainer = styled(Box)(({ theme }) => ({
   padding: "2px 8px",
   backgroundColor: '#ffffff',
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-  width: '100vw', // Full viewport width
-  maxWidth: '100%', // Ensure it does not exceed viewport width
+  width: '100vw', 
+  maxWidth: '100%',
   boxSizing: 'border-box',
   overflowX: 'hidden',
-  margin: 0, // Ensure no extra margins
+  margin: 0, 
   [theme.breakpoints.down('sm')]: {
     padding: "4px 16px",
   },
@@ -27,7 +27,7 @@ export const AppbarContainer = styled(Box)(({ theme }) => ({
 export const AppbarHeader = styled(Typography)(({ theme }) => ({
   padding: '4px',
   flexGrow: 1,
-  fontSize: '3em',
+  fontSize: '5em',
   fontFamily: '"Montez", "cursive"',
   color: '#ff4081',
   textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', 

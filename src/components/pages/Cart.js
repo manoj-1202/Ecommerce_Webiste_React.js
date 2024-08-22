@@ -49,7 +49,7 @@ const Cart = () => {
 
   return (
     <Container sx={{ marginBottom: 1, position: 'relative' }}>
-      <Typography variant="h4" gutterBottom align="center">
+      <Typography variant="h4" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
         Your Cart
       </Typography>
       {cart.length > 0 ? (

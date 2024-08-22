@@ -19,7 +19,7 @@ export const StyledProductBox = styled(Box)(({ theme }) => ({
   padding: '16px',
   backgroundColor: '#fff',
   borderRadius: '8px',
-  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+  boxShadow: '0 1px 8px rgba(0, 0, 0, 0.1)',
   transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
   '&:hover': {
     transform: 'translateY(-5px)',
@@ -57,8 +57,7 @@ export const StyledBox = styled(Box)(({ theme }) => ({
   padding: '16px',
   borderRadius: '8px',
   backgroundColor: '#f5f5f5',
-  borderTop: '1px solid #ddd',
-  borderBottom: '1px solid #ddd',
+
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
     alignItems: 'center',
@@ -82,12 +81,3 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-// Additional typography styling if needed
-export const StyledTypography = styled(Typography)(({ theme }) => ({
-  fontWeight: 'bold',
-  color: "black",
-  '&:hover': {
-    color: "black",
-    transition: 'color 0.3s ease-in-out',
-  },
-}));

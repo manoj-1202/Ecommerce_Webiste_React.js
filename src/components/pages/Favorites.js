@@ -44,7 +44,7 @@ const Favorites = () => {
 
   return (
     <Container sx={{ marginBottom: 4 }}>
-      <Typography variant="h4" gutterBottom align="center">
+      <Typography variant="h4" gutterBottom align="center"  sx={{marginTop:"25px",fontWeight:"bold"}}>
         Your Favorites
       </Typography>
       {favorites.length > 0 ? (

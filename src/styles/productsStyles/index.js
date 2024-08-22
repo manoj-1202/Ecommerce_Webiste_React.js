@@ -24,7 +24,7 @@ export const Product = styled(Box)(({ theme }) => ({
   
   // Center the products on the screen for all screen sizes
   [theme.breakpoints.up("md")]: {
-    maxWidth: "220px", 
+    maxWidth: "240px", 
     marginLeft: "auto",
     marginRight: "auto",
   },
@@ -36,7 +36,7 @@ export const Product = styled(Box)(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
-    maxWidth: "150px", 
+    maxWidth: "320px", 
     marginLeft: "auto",
     marginRight: "auto",
   },
@@ -48,9 +48,10 @@ export const ProductTitle = styled(Box)(({ theme }) => ({
   fontSize: "60px",  
   textAlign: "center",
   color: Colors.primary,
-  marginBottom: theme.spacing(1.5),
+  marginTop:"20px",
   [theme.breakpoints.down("md")]: {
-    fontSize: "40px",
+    fontSize: "50px",
+    marginTop:"20px",
   },
 }));
 

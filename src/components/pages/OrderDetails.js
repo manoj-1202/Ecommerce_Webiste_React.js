@@ -19,10 +19,12 @@ const OrderCard = () => {
   }, 0);
 
   return (
-    <Card variant="outlined" sx={{ margin: 'auto', padding: '10px', maxWidth: 800, boxShadow: 3 }}>
-      <Typography variant="h5" align="center" gutterBottom>
-        Transaction History
-      </Typography>
+    <Box  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop:"20px", marginBottom:"20px" }}>
+    <Card variant="outlined" sx={{padding: '10px', maxWidth: 800,border:"1px solid black"}}>
+    <Typography variant="h5" align="center" gutterBottom style={{ fontWeight: 'bold' }}>
+  Transaction History
+</Typography>
+
 
       <Box sx={{ padding: '16px', border: '1px solid #ddd', borderRadius: '8px', maxWidth: '800px', marginBottom: '16px' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
@@ -128,6 +130,7 @@ const OrderCard = () => {
 
       </CardContent>
     </Card>
+    </Box>
   );
 };
 

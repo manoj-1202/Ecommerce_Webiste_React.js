@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Container, Typography, Card, CardContent, Box, Grid, CircularProgress, Button } from '@mui/material';
+import { Container, Card, CardContent, Box, Grid, CircularProgress, Button, Typography } from '@mui/material';
 import { useCart } from '../products/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { Euro, ShoppingCart, LocalOffer } from '@mui/icons-material';
-import { ProductRow, StyledBox, StyledProductBox, StyledImage, StyledTypography } from '../../styles/productsStyles/buyNowStyles';
+import { ProductRow, StyledBox, StyledProductBox, StyledImage} from '../../styles/productsStyles/buyNowStyles';
 
 const BuyNow = () => {
   const { cart, getTotalAmount } = useCart();
@@ -30,9 +30,9 @@ const BuyNow = () => {
 
   return (
     <Container sx={{ marginBottom: 4, position: 'relative' }}>
-      <StyledTypography variant="h4" gutterBottom align="center">
+      <Typography variant="h4" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
         Place Your Order
-      </StyledTypography>
+      </Typography>
       {cart.length > 0 ? (
         <Card variant="outlined" sx={{ margin: 'auto', padding: '10px', maxWidth: 800, boxShadow: 3 }}>
           <CardContent>

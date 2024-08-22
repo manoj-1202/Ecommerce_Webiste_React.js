@@ -58,13 +58,6 @@ export const StyledFormControl = styled(FormControl)(({ theme }) => ({
   },
 }));
 
-// Responsive form label
-export const StyledFormLabel = styled(FormLabel)(({ theme }) => ({
-  marginBottom: theme.spacing(1),
-  [theme.breakpoints.up('sm')]: {
-    marginBottom: theme.spacing(2),
-  },
-}));
 
 // Responsive list
 export const StyledList = styled(List)(({ theme }) => ({

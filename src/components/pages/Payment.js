@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Radio, RadioGroup, FormControlLabel, Box, Typography, ListItemText, MenuItem, Snackbar, CircularProgress } from '@mui/material';
 import { AccountBalanceWallet, CreditCard, Money } from '@mui/icons-material';
 import MuiAlert from '@mui/material/Alert';
-import { StyledFormControl, StyledFormLabel, StyledList, StyledListItem, StyledListItemIcon, StyledPrimaryText, StyledSecondaryText, UpiFormContainer, UpiInput, StyledContainer, StyledGrid, StyledTextField, StyledButton } from '../../styles/productsStyles/paymentStyles';
+import { StyledFormControl, StyledList, StyledListItem, StyledListItemIcon, StyledPrimaryText, StyledSecondaryText, UpiFormContainer, UpiInput, StyledContainer, StyledGrid, StyledTextField, StyledButton } from '../../styles/productsStyles/paymentStyles';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const months = [
@@ -128,11 +128,13 @@ const PaymentOptions = () => {
   ];
 
   return (
+    
     <Box sx={{ padding: 2 }}>
+       <Typography variant="h5" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
+        Payment Method
+      </Typography>
       <StyledFormControl component="fieldset">
-        <StyledFormLabel component="legend">
-          Choose Payment Method
-        </StyledFormLabel>
+     
         <RadioGroup
           aria-label="payment-method"
           name="payment-method"

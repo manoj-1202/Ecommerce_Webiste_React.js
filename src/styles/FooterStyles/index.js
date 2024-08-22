@@ -2,6 +2,7 @@ import { styled } from "@mui/system";
 import { Box, Typography, List, ListItemButton, ListItemText } from "@mui/material";
 import { Colors } from "../../styles/theme";
 
+
 export const FooterContainer = styled(Box)(({ theme }) => ({
   background: Colors.shaft,
   color: Colors.white,
@@ -9,11 +10,11 @@ export const FooterContainer = styled(Box)(({ theme }) => ({
   paddingTop: theme.spacing(8),
   paddingBottom: theme.spacing(8),
   fontSize: '12px',
-  width: '100vw', // Full viewport width
-  maxWidth: '100%', // Ensure it does not exceed viewport width
+  width: '100vw', 
+  maxWidth: '100%', 
   boxSizing: 'border-box',
   overflowX: 'hidden',
-  margin: 0, // Ensure no extra margins
+  margin: 0, 
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(6),
     paddingTop: theme.spacing(5),
@@ -39,15 +40,26 @@ export const FooterTitle = styled(Typography)(({ theme }) => ({
 
 export const FooterList = styled(List)(({ theme }) => ({
   padding: 0,
+  lineHeight: 1.7, 
   [theme.breakpoints.down('md')]: {
     padding: 0,
   },
 }));
 
+
 export const FooterListItemText = styled(ListItemText)(({ theme }) => ({
   '& .MuiTypography-root': {
-    lineHeight: 2,
+    lineHeight: 1.7, 
     fontSize: '12px',
+    '&.Mui-selected': {
+    backgroundColor: Colors.primary,
+    color: Colors.white,
+  },
+  '&:hover': {
+    color: "white", 
+    transform: 'scale(1.0)',
+    transition: 'background-color 0.5s ease, color 0.3s ease, transform 0.3s ease',
+  },
     [theme.breakpoints.up('md')]: {
       fontSize: '14px',
     },
@@ -55,13 +67,15 @@ export const FooterListItemText = styled(ListItemText)(({ theme }) => ({
 }));
 
 export const FooterListItemButton = styled(ListItemButton)(({ theme }) => ({
+  lineHeight: 1.7, 
+  background:"white",
+  width:"200px",
   '&.Mui-selected': {
     backgroundColor: Colors.primary,
     color: Colors.white,
   },
   '&:hover': {
-    
-    color:"white", 
+    color: "white", 
     transform: 'scale(1.03)',
     transition: 'background-color 0.5s ease, color 0.3s ease, transform 0.3s ease',
   },

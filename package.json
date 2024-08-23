@@ -6,7 +6,7 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@fontsource/montez": "^5.0.19",
-    "@mui/icons-material": "^5.16.4",
+    "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.6",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@testing-library/user-event": "^13.5.0",

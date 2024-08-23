@@ -11,9 +11,11 @@ export const CartContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   padding: theme.spacing(2),
   boxSizing: "border-box",
+
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(1),
   },
+ 
 }));
 
 // CartProduct with a gradient background and rounded corners
@@ -40,7 +42,8 @@ export const CartProduct = styled(Box)(({ theme }) => ({
     marginTop: theme.spacing(1.5),
   },
   [theme.breakpoints.down("sm")]: {
-    width: "50%",
+    width: "70%",
+    
   },
 }));
 
@@ -106,11 +109,11 @@ export const TotalAmountContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: theme.spacing(2),
+  padding: theme.spacing(0),
   borderRadius: '8px',
 
   backgroundColor: '#f9f9f9',
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(2),
   [theme.breakpoints.down("md")]: {
     marginTop: theme.spacing(2),
     padding: theme.spacing(1.5),
@@ -122,7 +125,8 @@ export const TotalAmountText = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
   fontSize: '1.25rem',
   color: theme.palette.primary.dark,
-  marginTop: theme.spacing(2),
+  marginTop: theme.spacing(1),
+ 
   [theme.breakpoints.down("md")]: {
     fontSize: '1rem',
     marginTop: theme.spacing(1.5),
@@ -137,7 +141,7 @@ export const BuyNow = styled(Button)(({ theme }) => ({
   fontSize: '1rem',
   fontWeight: 'bold',
   borderRadius: '8px',
-  marginTop: theme.spacing(2),
+  marginTop: theme.spacing(1),
   '&:hover': {
     background: 'linear-gradient(90deg, #0056b3, #003d7a)',
   },
@@ -146,7 +150,7 @@ export const BuyNow = styled(Button)(({ theme }) => ({
     marginTop: theme.spacing(1.5),
   },
   [theme.breakpoints.down("sm")]: {
-    width: "100%",
+    width: "60%",
     padding: '8px 12px',
     fontSize: '0.875rem',
   },

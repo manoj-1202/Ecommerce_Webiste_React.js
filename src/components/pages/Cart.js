@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../products/CartContext';
-import { Container, Typography, Grid, Snackbar, Alert, CircularProgress, Button } from '@mui/material';
-import { CartProduct, ProductImage, CartQuantityBox, CartButton, RemoveButton, TotalAmountContainer, TotalAmountText } from '../../styles/productsStyles/cartStyles';
+import { Container, Typography, Grid, Snackbar, Alert, CircularProgress } from '@mui/material';
+import { CartProduct, ProductImage, CartQuantityBox, CartButton, RemoveButton, TotalAmountContainer, TotalAmountText, BuyNow } from '../../styles/productsStyles/cartStyles';
 import ProductMeta from '../products/ProductMeta';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,7 +68,7 @@ const Cart = () => {
                     >
                       Less
                     </CartButton>
-                    <Typography variant="body2" sx={{ marginX: 1 }}>
+                    <Typography variant="body2" sx={{  textAlign: 'center',marginX: 0}}>
                       Quantity: {product.quantity}
                     </Typography>
                     <CartButton
@@ -94,7 +94,7 @@ const Cart = () => {
               Total Amount: {formatPrice(getTotalAmount())}
             </TotalAmountText>
            
-            <Button
+            <BuyNow 
               variant="contained"
               color="primary"
               onClick={handleBuyNow}
@@ -108,7 +108,7 @@ const Cart = () => {
       ) : (
         'Place Order'
       )}
-    </Button>
+    </BuyNow>
           
           </TotalAmountContainer>
         </>

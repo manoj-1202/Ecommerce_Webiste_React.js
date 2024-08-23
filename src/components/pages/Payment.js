@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Radio, RadioGroup, FormControlLabel, Box, Typography, ListItemText, MenuItem, Snackbar, CircularProgress } from '@mui/material';
+import {
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Box,
+  Typography,
+  ListItemText,
+  MenuItem,
+  Snackbar,
+  CircularProgress,
+  TextField,
+  Button,
+  Grid,
+  FormControl,
+  List,
+  ListItem,
+  ListItemIcon,
+} from '@mui/material';
 import { AccountBalanceWallet, CreditCard, Money } from '@mui/icons-material';
+import { UpiBox, CardBox } from '../../styles/productsStyles/paymentStyles';
 import MuiAlert from '@mui/material/Alert';
-import { StyledFormControl, StyledList, StyledListItem, StyledListItemIcon, StyledPrimaryText, StyledSecondaryText, UpiFormContainer, UpiInput, StyledContainer, StyledGrid, StyledTextField, StyledButton } from '../../styles/productsStyles/paymentStyles';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const months = [
-  '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',
-];
-
-const years = [
-  '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033',
-];
+const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+const years = ['1824', '1825', '1826', '1827', '1828', '1829', '1830', '1831', '1832', '1833'];
 
 const PaymentOptions = () => {
   const navigate = useNavigate();
@@ -30,7 +42,6 @@ const PaymentOptions = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // Retrieve the user ID from localStorage
   const userId = localStorage.getItem('currentUser');
 
   useEffect(() => {
@@ -87,7 +98,6 @@ const PaymentOptions = () => {
 
     if (userId) {
       localStorage.setItem(`paymentInfo-${userId}`, JSON.stringify(paymentInfo));
-      // Removed success message and navigate to the success page
       setTimeout(() => {
         setLoading(false);
         navigate('/success');
@@ -105,21 +115,23 @@ const PaymentOptions = () => {
   };
 
   const paymentOptions = [
-    {
-      value: 'upi',
-      label: 'UPI',
-      icon: <AccountBalanceWallet />,
-      description: 'Pay by any UPI Id',
-    },
+   {
+  value: 'upi',
+  label: <span style={{ fontSize: '18px' }}>UPI</span>,
+  icon: <AccountBalanceWallet />,
+  description: 'Pay by any UPI Id',
+},
+
     {
       value: 'card',
-      label: 'Credit / Debit Card',
+      label: <span style={{ fontSize: '18px' }}>Credit / Debit Card</span>,
       icon: <CreditCard />,
       description: 'Add and secure cards',
+      
     },
     {
       value: 'cod',
-      label: 'Cash on Delivery',
+      label: <span style={{ fontSize: '18px' }}>Cash on Delivery</span>,
       icon: <Money />,
       description: '',
     },
@@ -127,142 +139,134 @@ const PaymentOptions = () => {
 
   return (
     <Box sx={{ padding: 2 }}>
-      <Typography variant="h5" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
+      <Typography variant="h5" gutterBottom align="center" sx={{ marginTop: '10px', fontWeight: 'bold',fontSize:"32px" }}>
         Payment Method
       </Typography>
-      <StyledFormControl component="fieldset">
-        <RadioGroup
-          aria-label="payment-method"
-          name="payment-method"
-          value={selectedValue}
-          onChange={handleChange}
-        >
-          <StyledList>
+      <FormControl component="fieldset">
+        <RadioGroup aria-label="payment-method" name="payment-method" value={selectedValue} onChange={handleChange}>
+          <List>
             {paymentOptions.map((option) => (
-              <StyledListItem key={option.value}>
-                <StyledListItemIcon>{option.icon}</StyledListItemIcon>
-                <ListItemText
-                  primary={
-                    <FormControlLabel
-                      value={option.value}
-                      control={<Radio />}
-                      label={
-                        <Box>
-                          <StyledPrimaryText variant="body1">
-                            {option.label}
-                          </StyledPrimaryText>
-                          {option.description && (
-                            <StyledSecondaryText variant="body2">
-                              {option.description}
-                            </StyledSecondaryText>
-                          )}
-                        </Box>
-                      }
+          
+              
+              <ListItem key={option.value} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <ListItemIcon>{option.icon}</ListItemIcon>
+                  <ListItemText
+                    primary={
+                      <FormControlLabel
+                        value={option.value}
+                        control={<Radio />}
+                        label={
+                          <Box>
+                            <Typography variant="body1">{option.label}</Typography>
+                            {option.description && <Typography variant="body2">{option.description}</Typography>}
+                          </Box>
+                          
+                        }
+                      />
+                    }
+                  />
+                </Box>
+               
+               
+                {option.value === 'upi' && selectedValue === 'upi' && (
+                  <UpiBox mt={1} sx={{ width: '100%' }}>
+                    <Typography variant="body">Enter your UPI ID:</Typography>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      value={upiId}
+                      onChange={handleUpiIdChange}
+                      placeholder="your-upi-id@bank"
+                      margin="normal"
                     />
-                  }
-                />
-                {selectedValue === option.value && (
-                  <Box mt={2}>
-                    {option.value === 'upi' && (
-                      <UpiFormContainer>
-                        <Typography variant="body1">
-                          Enter your UPI ID:
-                        </Typography>
-                        <Box display="flex" alignItems="center" mt={2}>
-                          <UpiInput
-                            fullWidth
-                            variant="outlined"
-                            value={upiId}
-                            onChange={handleUpiIdChange}
-                            placeholder="your-upi-id@bank"
-                          />
-                        </Box>
-                      </UpiFormContainer>
-                    )}
-                    {option.value === 'card' && (
-                      <StyledGrid container spacing={2}>
-                        <StyledGrid item xs={12}>
-                          <StyledTextField
-                            fullWidth
-                            variant="outlined"
-                            name="number"
-                            label="Card Number"
-                            value={cardDetails.number}
-                            onChange={handleCardDetailChange}
-                          />
-                        </StyledGrid>
-                        <StyledGrid item xs={6}>
-                          <StyledTextField
-                            select
-                            fullWidth
-                            variant="outlined"
-                            name="expiryMonth"
-                            label="Expiry Month"
-                            value={cardDetails.expiryMonth}
-                            onChange={handleCardDetailChange}
-                          >
-                            {months.map((month) => (
-                              <MenuItem key={month} value={month}>
-                                {month}
-                              </MenuItem>
-                            ))}
-                          </StyledTextField>
-                        </StyledGrid>
-                        <StyledGrid item xs={6}>
-                          <StyledTextField
-                            select
-                            fullWidth
-                            variant="outlined"
-                            name="expiryYear"
-                            label="Expiry Year"
-                            value={cardDetails.expiryYear}
-                            onChange={handleCardDetailChange}
-                          >
-                            {years.map((year) => (
-                              <MenuItem key={year} value={year}>
-                                {year}
-                              </MenuItem>
-                            ))}
-                          </StyledTextField>
-                        </StyledGrid>
-                        <StyledGrid item xs={12}>
-                          <StyledTextField
-                            fullWidth
-                            variant="outlined"
-                            name="cvv"
-                            label="CVV"
-                            value={cardDetails.cvv}
-                            onChange={handleCardDetailChange}
-                          />
-                        </StyledGrid>
-                      </StyledGrid>
-                    )}
-                  </Box>
+                  </UpiBox>
                 )}
-              </StyledListItem>
+                {option.value === 'card' && selectedValue === 'card' && (
+                  <CardBox mt={2} sx={{ width: '100%' }}>
+                    <Typography variant="body1">Enter your card details:</Typography>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          variant="outlined"
+                          name="number"
+                          label="Card Number"
+                          value={cardDetails.number}
+                          onChange={handleCardDetailChange}
+                          margin="normal"
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          select
+                          fullWidth
+                          variant="outlined"
+                          name="expiryMonth"
+                          label="Expiry Month"
+                          value={cardDetails.expiryMonth}
+                          onChange={handleCardDetailChange}
+                          margin="normal"
+                        >
+                          {months.map((month) => (
+                            <MenuItem key={month} value={month}>
+                              {month}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          select
+                          fullWidth
+                          variant="outlined"
+                          name="expiryYear"
+                          label="Expiry Year"
+                          value={cardDetails.expiryYear}
+                          onChange={handleCardDetailChange}
+                          margin="normal"
+                        >
+                          {years.map((year) => (
+                            <MenuItem key={year} value={year}>
+                              {year}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          variant="outlined"
+                          name="cvv"
+                          label="CVV"
+                          value={cardDetails.cvv}
+                          onChange={handleCardDetailChange}
+                          margin="normal"
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardBox>
+                )}
+              </ListItem>
             ))}
-          </StyledList>
+          </List>
         </RadioGroup>
-      </StyledFormControl>
+      </FormControl>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 2 }}>
         <Typography variant="h5" align="center" marginY={1}>
           Total Amount: ₹{totalAmount}
         </Typography>
-        <StyledContainer>
-          <StyledButton
-            onClick={handlePayNow}
-            variant="contained"
-            color="primary"
-            disabled={loading}
-            sx={{ position: 'relative' }}
-          >
-            {loading && (
-              <CircularProgress size={24} sx={{ position: 'absolute', top: '50%', left: '50%', marginTop: '-12px', marginLeft: '-12px' }} />
-            )}
-            {loading ? 'Processing...' : 'Pay Now'}
-          </StyledButton>
-        </StyledContainer>
+        <Button
+          onClick={handlePayNow}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          sx={{ position: 'relative' }}
+        >
+          {loading && <CircularProgress size={24} sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }} />}
+          {loading ? 'Processing...' : 'Pay Now'}
+        </Button>
       </Box>
 
       <Snackbar
@@ -271,13 +275,7 @@ const PaymentOptions = () => {
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <MuiAlert
-          elevation={6}
-          variant="filled"
-          severity={snackbarSeverity}
-          onClose={handleSnackbarClose}
-         
-        >
+        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity={snackbarSeverity}>
           {snackbarMessage}
         </MuiAlert>
       </Snackbar>

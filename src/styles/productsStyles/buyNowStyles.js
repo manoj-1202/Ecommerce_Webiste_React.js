@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 // Styled Box for product rows
 export const ProductRow = styled(Box)(({ theme }) => ({

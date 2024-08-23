@@ -76,6 +76,19 @@ export const ProductImage = styled("img")(({ theme }) => ({
   },
 }));
 
+export const ProductDetailImage = styled("img")(({ theme }) => ({
+  width: "150px",
+  height: "170px",
+
+  
+  [theme.breakpoints.down("sm")]: {
+   
+    width:"170px",
+    height:"150px",
+    
+  },
+}));
+
 
 export const ProductActionButton = styled(IconButton)(({theme}) => ({
   background: Colors.white,

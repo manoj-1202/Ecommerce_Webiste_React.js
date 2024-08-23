@@ -14,6 +14,8 @@ export const Product = styled(Box)(({ theme }) => ({
   border: '2px solid #ddd',
   borderRadius: '8px',
   padding: theme.spacing(2),
+ position:"sticky",
+ left: 70,
   boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
   transition: 'box-shadow 0.3s, transform 0.3s',
   '&:hover': {
@@ -26,7 +28,12 @@ export const Product = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(1),
-    width: "140px",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    width: "180px",
+ 
+   
   },
 }));
 
@@ -52,8 +59,13 @@ export const ButtonContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   marginTop: theme.spacing(1.5),
   [theme.breakpoints.down("md")]: {
-    flexDirection: 'column',
-    gap: theme.spacing(1),
+    flexDirection: 'row',
+    gap: theme.spacing(0),
+  },
+  [theme.breakpoints.down("sm")]: {
+    
+ margin:"0px"
+   
   },
 }));
 

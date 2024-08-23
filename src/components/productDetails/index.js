@@ -5,7 +5,7 @@ import { Dialog, DialogTitle, Slide, Box, IconButton, DialogContent, Typography,
 import CloseIcon from "@mui/icons-material/Close";
 import { Colors } from "../../styles/theme"; 
 import styled from "@emotion/styled";
-import {  ProductImage } from "../../styles/productsStyles"; 
+import {  ProductDetailImage} from "../../styles/productsStyles"; 
 import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
 import { useCart } from '../products/CartContext';
@@ -14,17 +14,25 @@ function SlideTransition(props) {
   return <Slide direction="down" {...props} />;
 }
 const Product = styled(Box)(({ theme }) => ({
-
-  [theme.breakpoints.down('md')]: {
-    marginRight: 0,
-    marginBottom: theme.spacing(2),
-    width: '40%',
-  },
+  display:"flex",
+  justifyContent:"center",
+  alignItems:"center",
+  width: "25%",
+  height: "170px",
+  marginRight:"20px",
   
 
-  display: 'flex',         
-  alignItems: 'center',    
-  justifyContent: 'center'
+  
+  [theme.breakpoints.down("sm")]: {
+    display:"flex",
+   justifyContent:"center",
+   alignItems:"center",
+    width:"200px",
+    height:"180px",
+    marginTop:"10px"
+    
+  },
+  
 }));
 
 const ProductDetailWrapper = styled(Box)(({ theme }) => ({
@@ -85,7 +93,7 @@ export default function ProductDetail({ open, onClose, product }) {
       <Dialog
         TransitionComponent={SlideTransition}
         open={open}
-        fullScreen={matches} // Enable fullscreen on mobile devices
+        fullScreen={matches} 
         onClose={onClose}
       >
         <DialogTitle
@@ -107,7 +115,7 @@ export default function ProductDetail({ open, onClose, product }) {
         <DialogContent>
           <ProductDetailWrapper>
             <Product sx={{ mr: matches ? 0 : 4 }}>
-              <ProductImage
+              <ProductDetailImage
                 style={{
                   maxWidth: matches ? '100%' : '600px',
                   marginBottom: matches ? theme.spacing(2) : 0,

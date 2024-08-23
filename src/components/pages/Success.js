@@ -38,7 +38,7 @@ const Success = () => {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        minHeight: '80vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

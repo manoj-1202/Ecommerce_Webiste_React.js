@@ -44,6 +44,7 @@ const Actions = ({ matches }) => {
           sx={{ 
             justifyContent: "center", 
             bgcolor: isActive('/cart') ? 'action.selected' : 'transparent' 
+            
           }}
         >
           <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>

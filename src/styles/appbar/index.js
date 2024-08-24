@@ -10,15 +10,11 @@ export const AppbarContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: 'space-between',
   alignItems: "center",
-  padding: "2px 8px",
+  padding: "1px 8px",
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-  width: '100vw', 
-  maxWidth: '100%',
-  boxSizing: 'border-box',
-  overflowX: 'hidden',
-  margin: 0, 
+
   [theme.breakpoints.down('sm')]: {
-    padding: "4px 16px",
+    padding: "4px ",
   },
   [theme.breakpoints.up('md')]: {
     justifyContent: "space-between",
@@ -28,13 +24,14 @@ export const AppbarContainer = styled(Box)(({ theme }) => ({
 // Header
 export const AppbarHeader = styled(Typography)(({ theme }) => ({
   padding: '4px',
-  flexGrow: 1,
+  flexGrow: 2,
   fontSize: '5em',
   fontFamily: '"Montez", "cursive"',
   color: '#ff4081',
   textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', 
   [theme.breakpoints.down('sm')]: {
    fontSize:"3.5em",
+   textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', 
   
   },
 
@@ -50,6 +47,9 @@ export const MyList = styled(List)(({ theme, type }) => ({
   [theme.breakpoints.down('sm')]: {
     flexDirection: "row", 
     gap: '0px',
+    paddingTop:"0px",
+    paddingBottom:"0px",
+   
   
   },
   [theme.breakpoints.up('md')]: {
@@ -65,7 +65,7 @@ export const CustomListItemButton = styled(ListItemButton)(({ theme, isActive })
     padding: '5px',
     marigin:"0px",
     width: '0px',              
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-center',
   },
   
 }));
@@ -90,9 +90,8 @@ export const ActionIconsContainerMobile = styled(Box)(({ theme }) => ({
   width: "100%",
   alignItems: "center",
   zIndex: 99,
-  borderTop: `1px solid #e0e0e0`,
-  padding: '8px 16px', 
   boxShadow: '0px -2px 5px rgba(0, 0, 0, 0.1)', 
+ 
   [theme.breakpoints.up('md')]: {
     display: 'none', // Hide mobile action icons on medium and up screens
   },

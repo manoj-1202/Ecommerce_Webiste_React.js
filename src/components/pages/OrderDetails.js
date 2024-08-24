@@ -9,7 +9,7 @@ const OrderCard = () => {
   if (!orderDetails) {
     return (
       <Typography variant="h6" align="center">
-        No order details found.
+        No Transaction details found.
       </Typography>
     );
   }

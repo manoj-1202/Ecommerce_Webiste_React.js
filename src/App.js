@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Container, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import Appbar from './components/appbar';
 import Footer from './components/Footer';
 import AppDrawer from './components/drawer';
@@ -33,21 +33,12 @@ function App() {
           <UserProvider>
             <CartProvider>
               <FavoritesProvider>
-              <Container
-               maxWidth="xl"
-                sx={{
-                
-              
-                minHeight: "100vh",
-                }}
-                >
                   <Appbar />
                   <SearchBox />
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/products" element={<ProductPage />} />
                     <Route path="/contact-us" element={<ContactUs />} />
-                 
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/favorites" element={<Favorites />} />
                     <Route path="/user" element={<User />} />
@@ -61,7 +52,6 @@ function App() {
                   </Routes>
                   <Footer />
                   <AppDrawer />
-                </Container>
               </FavoritesProvider>
             </CartProvider>
           </UserProvider>

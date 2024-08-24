@@ -12,8 +12,8 @@ export const PromotionsContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   padding: "35px 0", 
   overflow: "hidden",
+  width:"100%",
   background: Colors.secondary,
-  width: '100%',
   boxSizing: 'border-box', 
 }));
 

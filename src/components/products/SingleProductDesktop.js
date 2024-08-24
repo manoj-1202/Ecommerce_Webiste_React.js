@@ -100,7 +100,7 @@ const SingleProductDesktop = ({ product, matches }) => {
     <>
       <Box >
         <Product onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-          <ProductImage src={product.image} />
+        <ProductImage src={product.image} onClick={handleIconClick} />
           {(showOptions || matches) && (
             <ProductFavButton isFav={isFav} onClick={handleFavoriteClick}>
               <FavoriteIcon color={isFav ? "error" : "inherit"} />

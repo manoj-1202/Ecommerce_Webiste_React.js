@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from '@emotion/react';
-import { useMediaQuery, InputAdornment, TextField, Container, Grid } from "@mui/material";
+import { useMediaQuery, InputAdornment, TextField, Container, Grid, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { products } from '../../data';
 import SingleProduct from './SingleProduct';
@@ -27,7 +27,7 @@ const Products = () => {
   };
 
   return (
-    <Container >
+    <Container>
       <ProductTitle>
         The Products
       </ProductTitle>
@@ -47,39 +47,44 @@ const Products = () => {
         }}
       />
 
-      <Grid
-        container
-        spacing={{  sm: 3, md: 0 }}
-        justifyContent="center"
-        alignItems="center"
-      >
-        {filteredProducts.map((product) => (
-          <Grid
-            item 
-            sm={6}   
-            md={4} 
-            lg={4}  
-            key={product.id}
-            
-          >
-            {matches ? (
-              <SingleProduct
-                product={product}
-                matches={matches}
-                onAddToCart={() => handleAddToCart(product)}
-                onRemoveFromCart={() => handleRemoveFromCart(product)}
-              />
-            ) : (
-              <SingleProductDesktop
-                product={product}
-                matches={matches}
-                onAddToCart={() => handleAddToCart(product)}
-                onRemoveFromCart={() => handleRemoveFromCart(product)}
-              />
-            )}
-          </Grid>
-        ))}
-      </Grid>
+      {filteredProducts.length === 0 ? (
+        <Typography variant="h6" align="center" color="textSecondary" style={{ marginTop: '70px',minHeight: "80vh", }}>
+          No Result Found
+        </Typography>
+      ) : (
+        <Grid
+          container
+          spacing={{ sm: 3, md: 0 }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {filteredProducts.map((product) => (
+            <Grid
+              item
+              sm={6}
+              md={4}
+              lg={4}
+              key={product.id}
+            >
+              {matches ? (
+                <SingleProduct
+                  product={product}
+                  matches={matches}
+                  onAddToCart={() => handleAddToCart(product)}
+                  onRemoveFromCart={() => handleRemoveFromCart(product)}
+                />
+              ) : (
+                <SingleProductDesktop
+                  product={product}
+                  matches={matches}
+                  onAddToCart={() => handleAddToCart(product)}
+                  onRemoveFromCart={() => handleRemoveFromCart(product)}
+                />
+              )}
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Container>
   );
 };

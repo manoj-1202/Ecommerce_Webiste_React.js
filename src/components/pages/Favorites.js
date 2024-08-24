@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Typography, Grid, Snackbar, Alert, CircularProgress } from '@mui/material';
+import { Typography, Grid, Snackbar, Alert, CircularProgress } from '@mui/material';
 import { useFavorites } from './FavoritesContext'; 
-import { Product, ProductImage, RemoveButton, Cart, ButtonContainer } from '../../styles/productsStyles/favoriteStyles';
+import { Product, ProductImage, RemoveButton, Cart, ButtonContainer ,FavContainer} from '../../styles/productsStyles/favoriteStyles';
 import ProductMeta from '../products/ProductMeta';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../products/CartContext';
@@ -24,7 +24,7 @@ const Favorites = () => {
       setSnackbarMessage('Removed from Favorites');
       setLoading(false);
       setOpenSnackbar(true);
-    }, 500); // Simulating an API call
+    }, 500);
   };
 
   const handleAddToCart = (product) => {
@@ -35,7 +35,7 @@ const Favorites = () => {
       setLoading(false);
       setOpenSnackbar(true);
       navigate('/cart');
-    }, 500); // Simulating an API call
+    }, 500);
   };
 
   const handleCloseSnackbar = () => {
@@ -43,8 +43,8 @@ const Favorites = () => {
   };
 
   return (
-    <Container sx={{ marginBottom: 4 }}>
-      <Typography variant="h4" gutterBottom align="center"  sx={{marginTop:"25px",fontWeight:"bold"}}>
+    <FavContainer >
+      <Typography variant="h4" gutterBottom align="center"  sx={{fontWeight:"bold"}}>
         Your Favorites
       </Typography>
       {favorites.length > 0 ? (
@@ -103,7 +103,7 @@ const Favorites = () => {
           }}
         />
       )}
-    </Container>
+    </FavContainer>
   );
 };
 

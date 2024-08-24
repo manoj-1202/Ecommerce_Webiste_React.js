@@ -90,7 +90,8 @@ const SingleProduct = ({ product, matches }) => {
   return (
     <div style={{ position: 'relative' }}>
       <Product>
-        <ProductImage src={product.image} />
+        {/* Add onClick to ProductImage to open the dialog */}
+        <ProductImage src={product.image} onClick={handleIconClick} />
         <ProductMeta product={{ ...product, price: formatPrice(product.price) }} matches={matches} />
         <ProductActionsWrapper>
           <Stack direction="row">

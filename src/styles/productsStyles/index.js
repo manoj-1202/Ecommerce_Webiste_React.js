@@ -15,9 +15,6 @@ export const Product = styled(Box)(({ theme }) => ({
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
   transition: "transform 0.3s ease, box-shadow 0.3s ease",
   backgroundColor: "rgb(244, 238, 238)",
-  maxWidth: "220px", 
-  width: '100%',
- 
   '&:hover': {
     transform: "scale(1.02)",
     boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
@@ -38,7 +35,7 @@ export const Product = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     
-    maxWidth: "320px", 
+    maxWidth: "310px", 
     marginLeft: "-12px",
     
   },
@@ -125,6 +122,7 @@ export const ProductFavButton = styled(ProductActionButton)(({ isfav, theme }) =
   [theme.breakpoints.down("sm")]: {
     position:"absolute",
     left:0,
+   
     top:50,
      animation: "none",
      transition: "none",
@@ -145,7 +143,8 @@ export const ProductActionsWrapper = styled(Box)(({ show, theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     position:"absolute",
-  right:0,
+  right:10,
+ 
   top:20,
   animation: "none"
   },

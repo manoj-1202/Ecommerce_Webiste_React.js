@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../products/CartContext';
-import { Container, Typography, Grid, Snackbar, Alert, CircularProgress } from '@mui/material';
-import { CartProduct, ProductImage, CartQuantityBox, CartButton, RemoveButton, TotalAmountContainer, TotalAmountText, BuyNow } from '../../styles/productsStyles/cartStyles';
+import {  Typography, Grid, Snackbar, Alert, CircularProgress } from '@mui/material';
+import { CartProduct, ProductImage, CartQuantityBox, CartButton, RemoveButton, TotalAmountContainer, TotalAmountText, BuyNow, CartContainer } from '../../styles/productsStyles/cartStyles';
 import ProductMeta from '../products/ProductMeta';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,7 +48,7 @@ const Cart = () => {
   };
 
   return (
-    <Container sx={{ marginBottom: 1, position: 'relative' }}>
+    <CartContainer sx={{ marginBottom: 1, position: 'relative' }}>
       <Typography variant="h4" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
         Your Cart
       </Typography>
@@ -143,7 +143,7 @@ const Cart = () => {
           }}
         />
       )}
-    </Container>
+    </CartContainer>
   );
 };
 

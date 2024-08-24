@@ -4,13 +4,15 @@ import { Box, Button, Typography } from "@mui/material";
 // Container to center the CartProduct on the screen
 export const CartContainer = styled(Box)(({ theme }) => ({
   display: "flex",
+  flexDirection: 'column',
   justifyContent: "center",
   alignItems: "center",
   flexWrap: "wrap",
   width: "100%",
-  minHeight: "100vh",
+  minHeight: "80vh",
   padding: theme.spacing(2),
   boxSizing: "border-box",
+
 
   [theme.breakpoints.down("md")]: {
     padding: theme.spacing(1),
@@ -150,8 +152,8 @@ export const BuyNow = styled(Button)(({ theme }) => ({
     marginTop: theme.spacing(1.5),
   },
   [theme.breakpoints.down("sm")]: {
-    width: "60%",
-    padding: '8px 12px',
+    width: "80%",
+    padding: '6px 12px',
     fontSize: '0.875rem',
   },
 }));

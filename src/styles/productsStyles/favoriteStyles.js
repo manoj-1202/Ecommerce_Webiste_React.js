@@ -3,6 +3,22 @@ import { Box, Button } from "@mui/material";
 import { Colors } from "../theme";
 
 
+//FavContainer
+
+export const FavContainer =styled(Box)(({theme})=>({
+  display: "flex",
+  flexDirection: 'column',
+  justifyContent: "center",
+  alignItems: "center",
+  flexWrap: "wrap",
+  width: "100%",
+  minHeight: "80vh",
+  padding: theme.spacing(2),
+  boxSizing: "border-box",   
+ 
+
+}))
+
 // Product styling with a shadow and hover effect
 export const Product = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -118,3 +134,4 @@ export const FavProductActionButton = styled(Button)(({ theme }) => ({
     padding: '4px 8px',
   },
 }));
+

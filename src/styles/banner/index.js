@@ -10,11 +10,7 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
   height: "100%",
   padding: 0,
   background: "lightgray",
-  width: '100vw', // Full viewport width
-  maxWidth: '100%', // Ensure it does not exceed viewport width
-  boxSizing: 'border-box',
-  overflowX: 'hidden',
-  margin: 0, // Ensure no extra margins
+  margin: 0, 
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
@@ -22,14 +18,14 @@ export const BannerContainer = styled(Box)(({ theme }) => ({
 // Banner Image
 export const BannerImage = styled("img")(({ theme }) => ({
   marginRight: "5%",
-  width: "40%", // Make the image take half the width on larger screens
+  width: "40%", 
 
   [theme.breakpoints.down("md")]: {
     width: "60%",
-    marginBottom: "20px", // Add space below the image on smaller screens
+    marginBottom: "20px", 
   },
   [theme.breakpoints.down("sm")]: {
-    width: "100%", // Full width on the smallest screens
+    width: "100%", 
     height: "auto", 
   },
 }));

@@ -12,7 +12,7 @@ export const AppbarContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   padding: "1px 8px",
   boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-
+  backgroundColor: "rgb(244, 238, 238)",
   [theme.breakpoints.down('sm')]: {
     padding: "4px ",
   },
@@ -44,6 +44,7 @@ export const MyList = styled(List)(({ theme, type }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '10px',
+  backgroundColor: "rgb(244, 238, 238)",
   [theme.breakpoints.down('sm')]: {
     flexDirection: "row", 
     gap: '0px',

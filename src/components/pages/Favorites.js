@@ -43,8 +43,8 @@ const Favorites = () => {
   };
 
   return (
-    <FavContainer >
-      <Typography variant="h4" gutterBottom align="center"  sx={{fontWeight:"bold"}}>
+    <FavContainer sx={{ marginBottom: 1, position: 'relative' }}>
+      <Typography variant="h4" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
         Your Favorites
       </Typography>
       {favorites.length > 0 ? (

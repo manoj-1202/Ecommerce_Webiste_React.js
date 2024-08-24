@@ -36,7 +36,7 @@ const Actions = ({ matches }) => {
   const isActive = (path) => location.pathname === path; 
 
   return (
-    <Component>
+    <Component sx={{padding:"0px"}}>
       <MyList type="row">
         <CustomListItemButton
           component={Link} 

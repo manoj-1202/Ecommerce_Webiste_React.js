@@ -46,8 +46,10 @@ export const Product = styled(Box)(({ theme }) => ({
     padding: theme.spacing(1),
     display:"flex",
     justifyContent:"center",
+    justifyItems:"center",
     alignItems:"center",
-    width: "180px",
+    width: "70%",
+    marginRight:"32px",
  
    
   },

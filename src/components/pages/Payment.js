@@ -21,9 +21,10 @@ import { AccountBalanceWallet, CreditCard, Money } from '@mui/icons-material';
 import { UpiBox, CardBox } from '../../styles/productsStyles/paymentStyles';
 import MuiAlert from '@mui/material/Alert';
 import { useNavigate, useLocation } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 
 const months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-const years = ['1824', '1825', '1826', '1827', '1828', '1829', '1830', '1831', '1832', '1833'];
+const years = ['2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033'];
 
 const PaymentOptions = () => {
   const navigate = useNavigate();
@@ -35,6 +36,15 @@ const PaymentOptions = () => {
     expiryMonth: '',
     expiryYear: '',
     cvv: '',
+  });
+  const [shippingAddress, setShippingAddress] = useState({
+    name: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -61,6 +71,11 @@ const PaymentOptions = () => {
   const handleCardDetailChange = (event) => {
     const { name, value } = event.target;
     setCardDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
+  };
+
+  const handleShippingAddressChange = (event) => {
+    const { name, value } = event.target;
+    setShippingAddress((prevAddress) => ({ ...prevAddress, [name]: value }));
   };
 
   const handlePayNow = () => {
@@ -94,10 +109,36 @@ const PaymentOptions = () => {
       totalAmount,
       upiId: selectedValue === 'upi' ? upiId : undefined,
       cardDetails: selectedValue === 'card' ? cardDetails : undefined,
+      shippingAddress, 
     };
 
     if (userId) {
       localStorage.setItem(`paymentInfo-${userId}`, JSON.stringify(paymentInfo));
+      
+      // Send email after payment is made
+      const emailData = {
+        service_id: 'service_hq3cbqm',  //  EmailJS service ID
+        template_id: 'template_3cb77ma',  // EmailJS template ID
+        user_id: 'asDhf4VWP04Z1Qc7J',  // EmailJS user ID
+        template_params: {
+          name: "Mybags Customer", 
+          email: userId,  
+          mode: paymentInfo.method,
+          message: `Your payment of ₹${totalAmount} through ${paymentInfo.method} has been successful. Thank you for your purchase!`,
+        },
+      };
+
+      emailjs.send(
+        emailData.service_id,
+        emailData.template_id,
+        emailData.template_params,
+        emailData.user_id
+      ).then(() => {
+        console.log('Email successfully sent!');
+      }).catch((error) => {
+        console.error('Failed to send email:', error);
+      });
+
       setTimeout(() => {
         setLoading(false);
         navigate('/success');
@@ -115,19 +156,17 @@ const PaymentOptions = () => {
   };
 
   const paymentOptions = [
-   {
-  value: 'upi',
-  label: <span style={{ fontSize: '18px' }}>UPI</span>,
-  icon: <AccountBalanceWallet />,
-  description: 'Pay by any UPI Id',
-},
-
+    {
+      value: 'upi',
+      label: <span style={{ fontSize: '18px' }}>UPI</span>,
+      icon: <AccountBalanceWallet />,
+      description: 'Pay by any UPI Id',
+    },
     {
       value: 'card',
       label: <span style={{ fontSize: '18px' }}>Credit / Debit Card</span>,
       icon: <CreditCard />,
       description: 'Add and secure cards',
-      
     },
     {
       value: 'cod',
@@ -138,16 +177,93 @@ const PaymentOptions = () => {
   ];
 
   return (
-    <Box sx={{ padding: 2 }}>
-      <Typography variant="h5" gutterBottom align="center" sx={{ marginTop: '10px', fontWeight: 'bold',fontSize:"32px" }}>
+    <Box sx={{ padding: 2  }}>
+      {/* Address  */}
+
+      <Box sx={{ mt: 3 }}>
+        <Typography variant="h5" gutterBottom align="center" sx={{ fontWeight: 'bold', fontSize: '32px' }}>
+          Shipping Address
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12} lg={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="name"
+              label="Full Name"
+              value={shippingAddress.name}
+              onChange={handleShippingAddressChange}
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="addressLine1"
+              label="Address Line 1"
+              value={shippingAddress.addressLine1}
+              onChange={handleShippingAddressChange}
+              margin="normal"
+            />
+          </Grid>
+          
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="city"
+              label="City"
+              value={shippingAddress.city}
+              onChange={handleShippingAddressChange}
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="state"
+              label="State"
+              value={shippingAddress.state}
+              onChange={handleShippingAddressChange}
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="postalCode"
+              label="Postal Code"
+              value={shippingAddress.postalCode}
+              onChange={handleShippingAddressChange}
+              margin="normal"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              name="country"
+              label="Country"
+              value={shippingAddress.country}
+              onChange={handleShippingAddressChange}
+              margin="normal"
+            />
+          </Grid>
+        </Grid>
+      </Box>
+
+      {/* Payment method */}
+
+      <Typography variant="h5" gutterBottom align="center" sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '32px' }}>
         Payment Method
       </Typography>
       <FormControl component="fieldset">
         <RadioGroup aria-label="payment-method" name="payment-method" value={selectedValue} onChange={handleChange}>
           <List>
             {paymentOptions.map((option) => (
-          
-              
               <ListItem key={option.value} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <ListItemIcon>{option.icon}</ListItemIcon>
@@ -161,14 +277,11 @@ const PaymentOptions = () => {
                             <Typography variant="body1">{option.label}</Typography>
                             {option.description && <Typography variant="body2">{option.description}</Typography>}
                           </Box>
-                          
                         }
                       />
                     }
                   />
                 </Box>
-               
-               
                 {option.value === 'upi' && selectedValue === 'upi' && (
                   <UpiBox mt={1} sx={{ width: '100%' }}>
                     <Typography variant="body">Enter your UPI ID:</Typography>
@@ -252,30 +365,18 @@ const PaymentOptions = () => {
           </List>
         </RadioGroup>
       </FormControl>
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mt: 2 }}>
-        <Typography variant="h5" align="center" marginY={1}>
-          Total Amount: ₹{totalAmount}
-        </Typography>
-        <Button
-          onClick={handlePayNow}
-          variant="contained"
-          color="primary"
-          disabled={loading}
-          sx={{ position: 'relative' }}
-        >
-          {loading && <CircularProgress size={24} sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }} />}
-          {loading ? 'Processing...' : 'Pay Now'}
-        </Button>
+      
+      <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Button variant="contained" color="primary" onClick={handlePayNow} sx={{ textTransform: 'none', width: '250px', height: '50px', fontSize: '18px' }}>
+            Pay Now
+          </Button>
+        )}
       </Box>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={5000}
-        onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-        <MuiAlert elevation={6} variant="filled" onClose={handleSnackbarClose} severity={snackbarSeverity}>
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <MuiAlert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
           {snackbarMessage}
         </MuiAlert>
       </Snackbar>

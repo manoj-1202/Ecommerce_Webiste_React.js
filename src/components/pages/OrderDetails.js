@@ -69,7 +69,14 @@ const OrderCard = () => {
               <strong>Ship To:</strong>
             </Typography>
             <Typography variant="body2">
-              {userId}
+            {paymentInfo.shippingAddress && (
+          <div>
+            <p>Name: {paymentInfo.shippingAddress.name}</p>
+            <p>Address: {paymentInfo.shippingAddress.addressLine1} {paymentInfo.shippingAddress.city}</p>
+           
+            
+          </div>
+            )}
             </Typography>
             <Typography variant="body2" align="center" sx={{ marginTop: '8px', fontStyle: 'italic' }}>
               <strong>Keep this invoice and manufacturer box for warranty purposes</strong>

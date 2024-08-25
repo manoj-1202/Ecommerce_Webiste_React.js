@@ -91,12 +91,7 @@ const Footer = () => {
           </Box>
           </Grid>
         </Grid>
-        <Box mt={2} display="flex" justifyContent="center" alignItems="center" flexWrap="wrap">
-          <Typography variant="body2" sx={{ mr: 1 }}>
-            © 2024 My Bags. All rights reserved.
-          </Typography>
-          
-        </Box>
+       
       </Container>
     </FooterWrapper>
   );

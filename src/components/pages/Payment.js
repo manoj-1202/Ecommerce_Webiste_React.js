@@ -16,6 +16,7 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  Container,
 } from '@mui/material';
 import { AccountBalanceWallet, CreditCard, Money } from '@mui/icons-material';
 import { UpiBox, CardBox } from '../../styles/productsStyles/paymentStyles';
@@ -85,6 +86,7 @@ const PaymentOptions = () => {
       setSnackbarOpen(true);
       return;
     }
+    
 
     if (selectedValue === 'upi' && !upiId) {
       setSnackbarMessage('Please enter your UPI ID.');
@@ -99,6 +101,23 @@ const PaymentOptions = () => {
       setSnackbarOpen(true);
       return;
     }
+     // Check if shipping address is complete
+  const {
+    name,
+    addressLine1,
+    city,
+    state,
+    postalCode,
+    country
+  } = shippingAddress;
+
+  if (!name || !addressLine1 || !city || !state || !postalCode || !country) {
+    setSnackbarMessage('Please fill in all the shipping address fields.');
+    setSnackbarSeverity('warning');
+    setSnackbarOpen(true);
+    return;
+  }
+
 
     setLoading(true);
 
@@ -124,7 +143,7 @@ const PaymentOptions = () => {
           name: "Mybags Customer", 
           email: userId,  
           mode: paymentInfo.method,
-          message: `Your payment of ₹${totalAmount} through ${paymentInfo.method} has been successful. Thank you for your purchase!`,
+          message: `Your payment of ₹${totalAmount} through ${paymentInfo.method} with the address ${paymentInfo.shippingAddress.addressLine1} has been successful. Thank you for your purchase!`,
         },
       };
 
@@ -180,8 +199,8 @@ const PaymentOptions = () => {
     <Box sx={{ padding: 2  }}>
       {/* Address  */}
 
-      <Box sx={{ mt: 3 }}>
-        <Typography variant="h5" gutterBottom align="center" sx={{ fontWeight: 'bold', fontSize: '32px' }}>
+      <Box sx={{ mt: 2 }}>
+        <Typography variant="h5" gutterBottom align="center" sx={{ fontWeight: 'bold', fontSize: '30px' }}>
           Shipping Address
         </Typography>
         <Grid container spacing={2}>
@@ -256,115 +275,117 @@ const PaymentOptions = () => {
       </Box>
 
       {/* Payment method */}
-
-      <Typography variant="h5" gutterBottom align="center" sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '32px' }}>
+      <Typography variant="h5" gutterBottom align="center" sx={{ marginTop: '10px', fontWeight: 'bold', fontSize: '30px' }}>
         Payment Method
       </Typography>
-      <FormControl component="fieldset">
-        <RadioGroup aria-label="payment-method" name="payment-method" value={selectedValue} onChange={handleChange}>
-          <List>
-            {paymentOptions.map((option) => (
-              <ListItem key={option.value} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <ListItemIcon>{option.icon}</ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <FormControlLabel
-                        value={option.value}
-                        control={<Radio />}
-                        label={
-                          <Box>
-                            <Typography variant="body1">{option.label}</Typography>
-                            {option.description && <Typography variant="body2">{option.description}</Typography>}
-                          </Box>
-                        }
-                      />
+      <Container  >
+  <FormControl component="fieldset">
+    <RadioGroup aria-label="payment-method" name="payment-method" value={selectedValue} onChange={handleChange}>
+      <List sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        {paymentOptions.map((option) => (
+          <ListItem key={option.value} sx={{ width: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <ListItemIcon>{option.icon}</ListItemIcon>
+              <ListItemText
+                primary={
+                  <FormControlLabel
+                    value={option.value}
+                    control={<Radio />}
+                    label={
+                      <Box>
+                        <Typography variant="body1">{option.label}</Typography>
+                        {option.description && <Typography variant="body2">{option.description}</Typography>}
+                      </Box>
                     }
                   />
-                </Box>
-                {option.value === 'upi' && selectedValue === 'upi' && (
-                  <UpiBox mt={1} sx={{ width: '100%' }}>
-                    <Typography variant="body">Enter your UPI ID:</Typography>
+                }
+              />
+            </Box>
+            {option.value === 'upi' && selectedValue === 'upi' && (
+              <UpiBox mt={1}>
+                <Typography variant="body">Enter your UPI ID:</Typography>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  value={upiId}
+                  onChange={handleUpiIdChange}
+                  placeholder="your-upi-id@bank"
+                  margin="normal"
+                />
+              </UpiBox>
+            )}
+            {option.value === 'card' && selectedValue === 'card' && (
+              <CardBox mt={2}>
+                <Typography variant="body1">Enter your card details:</Typography>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
                     <TextField
                       fullWidth
                       variant="outlined"
-                      value={upiId}
-                      onChange={handleUpiIdChange}
-                      placeholder="your-upi-id@bank"
+                      name="number"
+                      label="Card Number"
+                      value={cardDetails.number}
+                      onChange={handleCardDetailChange}
                       margin="normal"
                     />
-                  </UpiBox>
-                )}
-                {option.value === 'card' && selectedValue === 'card' && (
-                  <CardBox mt={2} sx={{ width: '100%' }}>
-                    <Typography variant="body1">Enter your card details:</Typography>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          variant="outlined"
-                          name="number"
-                          label="Card Number"
-                          value={cardDetails.number}
-                          onChange={handleCardDetailChange}
-                          margin="normal"
-                        />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextField
-                          select
-                          fullWidth
-                          variant="outlined"
-                          name="expiryMonth"
-                          label="Expiry Month"
-                          value={cardDetails.expiryMonth}
-                          onChange={handleCardDetailChange}
-                          margin="normal"
-                        >
-                          {months.map((month) => (
-                            <MenuItem key={month} value={month}>
-                              {month}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextField
-                          select
-                          fullWidth
-                          variant="outlined"
-                          name="expiryYear"
-                          label="Expiry Year"
-                          value={cardDetails.expiryYear}
-                          onChange={handleCardDetailChange}
-                          margin="normal"
-                        >
-                          {years.map((year) => (
-                            <MenuItem key={year} value={year}>
-                              {year}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          variant="outlined"
-                          name="cvv"
-                          label="CVV"
-                          value={cardDetails.cvv}
-                          onChange={handleCardDetailChange}
-                          margin="normal"
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardBox>
-                )}
-              </ListItem>
-            ))}
-          </List>
-        </RadioGroup>
-      </FormControl>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      select
+                      fullWidth
+                      variant="outlined"
+                      name="expiryMonth"
+                      label="Expiry Month"
+                      value={cardDetails.expiryMonth}
+                      onChange={handleCardDetailChange}
+                      margin="normal"
+                    >
+                      {months.map((month) => (
+                        <MenuItem key={month} value={month}>
+                          {month}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      select
+                      fullWidth
+                      variant="outlined"
+                      name="expiryYear"
+                      label="Expiry Year"
+                      value={cardDetails.expiryYear}
+                      onChange={handleCardDetailChange}
+                      margin="normal"
+                    >
+                      {years.map((year) => (
+                        <MenuItem key={year} value={year}>
+                          {year}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      name="cvv"
+                      label="CVV"
+                      value={cardDetails.cvv}
+                      onChange={handleCardDetailChange}
+                      margin="normal"
+                    />
+                  </Grid>
+                </Grid>
+              </CardBox>
+            )}
+          </ListItem>
+        ))}
+      </List>
+    </RadioGroup>
+  </FormControl>
+</Container>
+
       
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
         {loading ? (
@@ -375,7 +396,8 @@ const PaymentOptions = () => {
           </Button>
         )}
       </Box>
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <MuiAlert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
           {snackbarMessage}
         </MuiAlert>

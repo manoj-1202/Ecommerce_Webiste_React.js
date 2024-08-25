@@ -9,6 +9,7 @@ import ProductDetail from '../productDetails';
 import { useCart } from './CartContext';
 import { useFavorites } from '../pages/FavoritesContext';
 import { useUser } from '../pages/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const formatPrice = (price) => `₹${price}`;
 
@@ -17,6 +18,7 @@ const SingleProductDesktop = ({ product, matches }) => {
   const { addToCart, removeFromCart, cart } = useCart();
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const inCart = cart.some((item) => item.id === product.id);
   const isFav = favorites.some((item) => item.id === product.id);
@@ -38,9 +40,15 @@ const SingleProductDesktop = ({ product, matches }) => {
 
   const handleFavoriteClick = () => {
     if (!user) {
+      
       setSnackbarMessage('You need to login to add items to favorites.');
       setSnackbarSeverity('warning'); 
       setOpenSnackbar(true);
+     
+
+      setTimeout(() => {
+        navigate('/login');
+    }, 1000); 
       return;
     }
 
@@ -65,6 +73,9 @@ const SingleProductDesktop = ({ product, matches }) => {
       setSnackbarMessage('You need to login to add items to the cart.');
       setSnackbarSeverity('warning'); 
       setOpenSnackbar(true);
+      setTimeout(() => {
+        navigate('/login');
+    }, 1000); 
       return;
     }
 

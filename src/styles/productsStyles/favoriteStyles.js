@@ -81,8 +81,11 @@ export const ButtonContainer = styled(Box)(({ theme }) => ({
     gap: theme.spacing(0),
   },
   [theme.breakpoints.down("sm")]: {
-    
- margin:"0px"
+    width:"100%",
+ margin:"0px",
+ display: 'flex',
+ justifyContent: 'space-between',
+
    
   },
 }));
@@ -102,6 +105,9 @@ export const RemoveButton = styled(Button)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     padding: '4px 8px',
   },
+  [theme.breakpoints.down("sm")]: {
+    padding: '4px 15px',
+  },
 }));
 
 // Cart button with a consistent look and feel
@@ -118,6 +124,9 @@ export const Cart = styled(Button)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     padding: '4px 8px',
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: '4px 15px',
   },
 }));
 

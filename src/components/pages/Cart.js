@@ -4,6 +4,8 @@ import {  Typography, Grid, Snackbar, Alert, CircularProgress } from '@mui/mater
 import { CartProduct, ProductImage, CartQuantityBox, CartButton, RemoveButton, TotalAmountContainer, TotalAmountText, BuyNow, CartContainer } from '../../styles/productsStyles/cartStyles';
 import ProductMeta from '../products/ProductMeta';
 import { useNavigate } from 'react-router-dom';
+import useDialogModal from '../../hooks/useDialogModel';
+import ProductDetail from '../productDetails';
 
 const formatPrice = (price) => `₹${price}`;
 
@@ -15,6 +17,7 @@ const Cart = () => {
   const [orderLoading, setOrderLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [ProductDetailDialog, showProductDetailDialog] = useDialogModal(ProductDetail);
 
   const handleIncreaseQuantity = (productId) => {
     increaseQuantity(productId);
@@ -47,6 +50,13 @@ const Cart = () => {
     setOpenSnackbar(false);
   };
 
+  const handleIconClick = () => {
+    
+    setTimeout(() => {
+     
+      showProductDetailDialog();
+    }, 500); 
+  };
   return (
     <CartContainer sx={{ marginBottom: 1, position: 'relative' }}>
       <Typography variant="h4" gutterBottom align="center" sx={{marginTop:"25px",fontWeight:"bold"}}>
@@ -54,41 +64,60 @@ const Cart = () => {
       </Typography>
       {cart.length > 0 ? (
         <>
-          <Grid container spacing={1}>
-            {cart.map((product) => (
-              <Grid item xs={12} sm={6} md={3} key={product.id}>
-                <CartProduct>
-                  <ProductImage src={product.image} alt={product.name} />
-                  <ProductMeta product={{ ...product, price: formatPrice(product.price) }} />
-                  <CartQuantityBox>
-                    <CartButton
-                      variant="contained"
-                      color="success"
-                      onClick={() => handleDecreaseQuantity(product.id)}
-                    >
-                      Less
-                    </CartButton>
-                    <Typography variant="body2" sx={{  textAlign: 'center',marginX: 0}}>
-                      Quantity: {product.quantity}
-                    </Typography>
-                    <CartButton
-                      variant="contained"
-                      color="success"
-                      onClick={() => handleIncreaseQuantity(product.id)}
-                    >
-                      Add
-                    </CartButton>
-                  </CartQuantityBox>
-                  <RemoveButton
-                    variant="contained"
-                    onClick={() => handleRemoveFromCart(product.id)}
-                  >
-                    Remove
-                  </RemoveButton>
-                </CartProduct>
-              </Grid>
-            ))}
-          </Grid>
+          <Grid
+  container
+  spacing={1}
+  sx={{
+    justifyContent: cart.length === 1 ? 'center' : 'flex-start', 
+  }}
+>
+  {cart.map((product, index) => (
+    <Grid
+      item
+      xs={12}
+      sm={6}
+      md={3}
+      key={product.id}
+      sx={{
+        display: 'flex',
+        justifyContent: index === 0 && cart.length === 1 ? 'center' : 'flex-start', // Center the first item if it's the only one
+       
+      }}
+    >
+      <CartProduct>
+        <ProductImage src={product.image} alt={product.name} onClick={handleIconClick}/>
+        <ProductMeta product={{ ...product, price: formatPrice(product.price) }} />
+        <CartQuantityBox>
+          <CartButton
+            variant="contained"
+            color="success"
+            onClick={() => handleDecreaseQuantity(product.id)}
+          >
+            Less
+          </CartButton>
+          <Typography variant="body2" sx={{ textAlign: 'center', marginX: 0 }}>
+            Quantity: {product.quantity}
+          </Typography>
+          <CartButton
+            variant="contained"
+            color="success"
+            onClick={() => handleIncreaseQuantity(product.id)}
+          >
+            Add
+          </CartButton>
+        </CartQuantityBox>
+        <RemoveButton
+          variant="contained"
+          onClick={() => handleRemoveFromCart(product.id)}
+        >
+          Remove
+        </RemoveButton>
+      </CartProduct>
+      <ProductDetailDialog product={product} />
+    </Grid>
+  ))}
+</Grid>
+
           <TotalAmountContainer>
             <TotalAmountText variant="h5" align="center">
               Total Amount: {formatPrice(getTotalAmount())}
@@ -121,7 +150,7 @@ const Cart = () => {
       {/* Snackbar for showing messages */}
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >

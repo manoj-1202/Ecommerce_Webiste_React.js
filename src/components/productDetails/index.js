@@ -21,8 +21,6 @@ const Product = styled(Box)(({ theme }) => ({
   height: "170px",
   marginRight:"20px",
   
-
-  
   [theme.breakpoints.down("sm")]: {
     display:"flex",
    justifyContent:"center",
@@ -53,10 +51,22 @@ const ProductDetailInfoWrapper = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   maxWidth: 500,
   lineHeight: 1.5,
+ 
   [theme.breakpoints.down("md")]: {
     maxWidth: '100%',
-    textAlign: 'center',
-    alignItems: 'center',
+    textAlign: 'start',
+    alignItems: 'start',
+  },
+}));
+
+const BulletText = styled(Typography)(({ theme }) => ({
+  position: 'relative',
+  paddingLeft: theme.spacing(2), 
+  '&::before': {
+    content: '"•"', 
+    position: 'absolute',
+    left: 0,
+    top: 0,
   },
 }));
 
@@ -125,30 +135,43 @@ export default function ProductDetail({ open, onClose, product }) {
               />
             </Product>
             <ProductDetailInfoWrapper>
-              <Typography variant="subtitle2">Availability: In Stock</Typography>
-              <Typography textTransform="uppercase" sx={{ lineHeight: 2 }} variant="h4">
-                {product.name}
-              </Typography>
-              <Typography variant="body1">
-                {product.description}
-              </Typography>
-              <Box
-                sx={{ mt: 4, minWidth: matches ? '200px' : '400px' }}
-                display="flex"
-                alignItems="center"
-                justifyContent={matches ? 'center' : 'space-between'}
-              >
-                {isInCart ? (
-                  <Button variant="contained" color="secondary" onClick={handleRemoveFromCart}>
-                    Remove from Cart
-                  </Button>
-                ) : (
-                  <Button variant="contained" onClick={handleAddToCart}>
-                    Add to Cart
-                  </Button>
-                )}
-              </Box>
-            </ProductDetailInfoWrapper>
+  <Typography variant="subtitle2">Availability: In Stock</Typography>
+  <Typography textTransform="uppercase" sx={{ lineHeight: 2 }} variant="h4">
+    {product.name}
+  </Typography>
+  <BulletText variant="body1">
+    About: {product.description}
+  </BulletText>
+  <BulletText variant="body1">
+    Material: {product.material}
+  </BulletText>
+  <BulletText variant="body1">
+    Size: {product.size}
+  </BulletText>
+  <BulletText variant="body1">
+    Rating: {product.rating}
+  </BulletText>
+  <BulletText variant="body1">
+    Delivery: {product.delivery}
+  </BulletText>
+
+  <Box
+    sx={{ mt: 4, minWidth: matches ? '200px' : '400px' }}
+    display="flex"
+    alignItems="center"
+    justifyContent={matches ? 'center' : 'space-between'}
+  >
+    {isInCart ? (
+      <Button variant="contained" color="secondary" onClick={handleRemoveFromCart}>
+        Remove from Cart
+      </Button>
+    ) : (
+      <Button variant="contained" onClick={handleAddToCart}>
+        Add to Cart
+      </Button>
+    )}
+  </Box>
+</ProductDetailInfoWrapper>
           </ProductDetailWrapper>
         </DialogContent>
       </Dialog>

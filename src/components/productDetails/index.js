@@ -140,19 +140,19 @@ export default function ProductDetail({ open, onClose, product }) {
     {product.name}
   </Typography>
   <BulletText variant="body1">
-    About: {product.description}
+    <strong>About: </strong>{product.description}
   </BulletText>
   <BulletText variant="body1">
-    Material: {product.material}
+    <strong>Material: </strong>{product.material}
   </BulletText>
   <BulletText variant="body1">
-    Size: {product.size}
+    <strong>Size: </strong>{product.size}
   </BulletText>
   <BulletText variant="body1">
-    Rating: {product.rating}
+    <strong>Rating:</strong> {product.rating}
   </BulletText>
   <BulletText variant="body1">
-    Delivery: {product.delivery}
+    <strong>Delivery:</strong> {product.delivery}
   </BulletText>
 
   <Box
